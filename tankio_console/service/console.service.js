@@ -1,8 +1,11 @@
 const repositoryConsole = require("../repositories/console.repository");
+const repositoryInvoice = require("../repositories/invoice.repository");
+
 const { env } = require("../config/env");
 const { randomInt } = require("crypto");
 const email = require("./email/email");
 const sms = require("./sms/sms");
+const {encrypter} = require("../utils/encrypter");
 
 
 exports.syncBalanceMovement = async () => {
@@ -136,7 +139,8 @@ exports.syncNotifyEmailConfirmation = async () => {
   const list = await repositoryConsole.getListNotifyEmail(); 
   if (list.length > 0) {
     const itemUser = list[0];
-     const url = `${env.url_confirm_email_user}${itemUser.id}/${itemUser.email}`;
+    //const normalizeEmail = encrypter(itemUser.email);
+    const url = `${env.url_confirm_email_user}${itemUser.id}?email=${encrypter(itemUser.email)}`;
     const isSentEmail = await email.emailNotificationConfirmUserEmail(itemUser.email,url);
     if(isSentEmail){
         await repositoryConsole.confirmSendingEmailUser(itemUser);

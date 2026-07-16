@@ -63,7 +63,7 @@ async function emailNotificationRecoveryPassword(email, url) {
       attachments: [
         {
           filename: "logo_insepet_white.png",
-          path: "C:/Users/Insepet/Documents/Insepet/Insepet/Inselect/2026/tankio_console/service/email/assets/logo-tankio-bg-removed.png",
+          path: "C:/Users/Insepet/Documents/Insepet/Insepet/Repositorios/Tankio/tankio_console/service/email/assets/logo-tankio-bg-removed.png",
           cid: "logoInsepet", // 👈 coincide con el src
         },
       ],
@@ -101,7 +101,7 @@ async function emailNotificationConfirmUserEmail(email,url) {
       attachments: [
         {
           filename: "logo_insepet_white.png",
-          path: "C:/Users/Lenovo/Documents/Insepet/tankio_console/service/email/assets/logo-tankio-bg-removed.png",
+          path: "C:/Users/Insepet/Documents/Insepet/Insepet/Repositorios/Tankio/tankio_console/service/email/assets/logo-tankio-bg-removed.png",
           cid: "logoInsepet", // 👈 coincide con el src
         },
       ],

@@ -1,4 +1,58 @@
-type.document
+
+select  * from public.group
+
+CREATE TABLE   public.station_invoice_configuration (
+	 id serial primary key,
+	 station_id integer not null,
+	 user_name varchar(50),
+	 password varchar(50),
+	 station_id_invoice varchar(100),
+	 terminal_id_invoice varchar(60),
+	 api_key varchar(50),
+	 active boolean default true,
+	 current_token text,
+	 token_expire_at timestamp default now(),
+	 created_at timestamp default now()
+)
+
+select * from station_invoice_configuration
+
+ALTER TABLE public.station_invoice_configuration ALTER COLUMN token_authentication TYPE jsonb USING token_authentication::jsonb;
+
+SELECT now() + interval '15 minutes' as expire_at
+
+SELECT * FROM type.document
+
+
+select * from public.payment_gateway
+
+alter table  public.payment_gateway add column dian_code varchar(5)
+
+select * from public.group_payment_gateway
+
+--1 débito 2 crédito
+
+select * from public.product
+
+CREATE TABLE public.tax(
+	id serial primary key,
+	tax varchar(5),
+	description varchar(30),
+	active boolean default true,
+	create_at timestamp default now()
+)
+
+CREATE table public.product_tax(
+	id serial primary key,
+	tax_id integer,
+	product_id integer,
+	percentage_value float,
+	active boolean default true,
+	create_at timestamp default now()
+)
+
+
+
 
 
 select* from public.user
@@ -11,6 +65,8 @@ email_is_valid
 
 SELECT * FROM public.programming
 ORDER BY id DESC LIMIT 100
+
+select * from public.hose
 
 
 
@@ -26,6 +82,111 @@ select * from type.balance_movement
 
 
 select * from public.sale
+order by 1 desc
+
+select * from public.user
+select * from type.document
+order by 1 asc
+
+alter table type.document add column description varchar(50)
+
+alter table type.document alter column type type varchar(10)
+alter table type.document alter column description type varchar(80)
+
+
+
+SELECT 
+s.*,
+pg.id as programming_id,
+pg.station_id,
+pg.user_id,
+pg.identifier,
+pg.controller_id,
+pg.position_id,
+pg.hose_id,
+h.hose_number,
+h.hose_code,
+p.id as product_id,
+p.name as product_name,
+p.station_id as product_station_id,
+p.product_code,
+pg.price,
+pg.programming_type,
+pg.programming_value,
+pg.programming_money,
+pg.uuid as programming_uuid
+FROM public.sale as s
+INNER JOIN public.programming as pg
+ON s.programming_uuid = pg.uuid
+INNER JOIN public.hose as h 
+ON pg.hose_id = h.id
+INNER JOIN public.product as p
+ON h.product_id = p.id
+WHERE s.synchronized = false
+
+alter table public.sale add column synchronized boolean default false;
+
+
+CREATE TABLE public.invoice(
+	id serial primary key,
+	station_id integer not null,
+	invoice_sequence_number integer not null,
+	invoice_number varchar(20),
+	sale_id integer,
+	user_payload jsonb,
+	sale_payload jsonb,
+	request_invoice_payload jsonb,
+	response_invoice_payload jsonb,
+	status_code_invoice integer default 0,
+	uuid uuid default gen_random_uuid(),
+	created_at timestamp default now()
+)
+
+select * from public.invoice
+truncate table public.invoice restart identity 
+
+SELECT * FROM public.station_invoice
+select * from public.sale
+update public.sale set synchronized = false;
+
+
+create table public.payment_means_code(
+	id serial primary key,
+	code integer,
+	description varchar(15),
+	create_at timestamp default now()
+)
+
+create table  public.payment_means(
+	id serial primary key,
+	code integer,
+	payment_mean varchar(40),
+	create_at timestamp default now()
+)
+
+select * from public.payment_means
+
+
+select * from public.payment_means_code
+
+
+create table public.station_invoice (
+	id serial primary key,
+	station_id integer not null,
+	last_invoice integer not null default 0,
+	create_at timestamp default now(),
+	modified_at timestamp
+)
+
+
+
+
+
+
+
+
+
+
 
 
 select * from public.owner
@@ -98,4 +259,57 @@ PaymentDianModel
             TaxTreatment = "EXCLUDED"
         }
     }
+}
+
+
+
+
+
+
+{
+   "posTransactionId":"b11bdc53-6ef4-4a14-b2fb-2ebafa231533-main-01-3633300",
+   "issueDate":"2026-07-15",
+   "issueTime":"14:37:38-05:00",
+   "currency":"COP",
+   "supplier":{
+      "nit":"901548016",
+      "dv":" ",
+      "name":"QA"
+   },
+   "customer":{
+      "nit":"222222222222",
+      "documentTypeCode":"31",
+      "name":"CONSUMIDOR FINAL",
+      "email":"CONSUMIDORFINAL@EMAIL.COM",
+      "departmentCode":"11",
+      "cityCode":"11001",
+      "cityName":"Bogotá"
+   },
+   "items":[
+      {
+         "id":1,
+         "sku":"1",
+         "description":"CORRIENTE",
+         "qty":3.896,
+         "unitCode":"GLL",
+         "unitPrice":15400.0,
+         "lineSubtotalAmount":60000.0,
+         "lineTotalAmount":60000.0,
+         "taxes":[
+            {
+               "schemeId":"01",
+               "percent":0.0,
+               "taxTreatment":"EXCLUDED"
+            }
+         ]
+      }
+   ],
+   "payments":[
+      {
+         "paymentForm":"1",
+         "paymentMethod":"10",
+         "amount":60000.0
+      }
+   ],
+   "note":"Venta: 3633300 | Placa: 984 "
 }

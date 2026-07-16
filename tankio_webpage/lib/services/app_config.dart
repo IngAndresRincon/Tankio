@@ -1,0 +1,21 @@
+class AppConfig {
+  const AppConfig._();
+
+  static const String baseUrl = String.fromEnvironment(
+    'INSEPET_BASE_URL',
+    //defaultValue: 'https://subdivinely-unreciprocal-hee.ngrok-free.dev',
+    defaultValue: 'http://localhost:40412',
+  );
+
+  static const String socketUrl = String.fromEnvironment(
+    'INSEPET_SOCKET_URL',
+    defaultValue: 'http://localhost:40412',
+    //defaultValue: 'https://subdivinely-unreciprocal-hee.ngrok-free.dev',
+  );
+
+  static const String apiKey = String.fromEnvironment(
+    'TANKIO_API_KEY',
+    defaultValue:
+        '466d1a7023df1cefdbebdb87935fc95815b9ff5f5608fc90844e4384f69e2f2c',
+  );
+}

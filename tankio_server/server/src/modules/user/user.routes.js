@@ -15,7 +15,7 @@ router.get('/password-recovery-url/:code', controller.passwordrecoveryurl);
 router.post('/password-recovery/update', controller.passwordrecoveryupdate);
 router.post('/password-recovery/:email', validateApiKey, controller.passwordrecoverybyemail);
 router.delete('/delete-account/:userid', validateApiKey, controller.deleteaccount);
-router.get('/confirm-email/:userid/:email', controller.confirmemailuser);
+router.get('/confirm-email/:userid', controller.confirmemailuser);
 
 
 

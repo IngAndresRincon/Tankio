@@ -1,6 +1,7 @@
 const path = require("path");
 const fs = require("fs");
 const userService = require("./user.service");
+const { desencrypter} = require('../../utils/encrypter');
 
 exports.register = async (req, res, next) => {
   try {
@@ -189,8 +190,10 @@ exports.deleteaccount = async (req, res, next) => {
 exports.confirmemailuser = async (req, res, next) => {
   try {
     
-    const {userid, email} = req.params;
-    const result = await userService.confirmemailuser(parseInt(userid),email);
+    const {userid} = req.params;
+    const {email} = req.query;
+    const normalizeEmail = desencrypter(email);
+    const result = await userService.confirmemailuser(parseInt(userid),normalizeEmail);
 
     return res.status(200).json({
       message: "Password updated successfully",

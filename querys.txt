@@ -1,0 +1,101 @@
+type.document
+
+
+select* from public.user
+
+ALTER TABLE public.user ADD COLUMN email_is_valid bool default false;
+ALTER TABLE public.user ADD COLUMN email_notified bool default false;
+ALTER TABLE public.user ADD COLUMN notified_at timestamp;
+
+email_is_valid
+
+SELECT * FROM public.programming
+ORDER BY id DESC LIMIT 100
+
+
+
+select * from public.balance
+order by 1 desc
+
+select * from public.balance_movement
+where balance_movement_type_id = 1
+order by 1 desc
+
+
+select * from type.balance_movement
+
+
+select * from public.sale
+
+
+select * from public.owner
+
+select * from public.group
+
+select * from public.group_payment_gateway
+
+-- Agregar columna código DIAN 
+select * from public.payment_gateway
+
+
+select* from public.payment_request
+order by 1 desc
+
+select * from public.station
+
+
+var body = JsonConvert.SerializeObject(new
+{
+    username = _config.PosUsername,
+    password = _config.PosPassword,
+    stationId = _config.StationId,
+    terminalId = _config.TerminalId
+});
+
+-- Tabla de factura por estación
+(user,password,stationIdOwner,stationIdInvoice,terminalId)
+
+--usuario: edsnormandiasas@gmail.com
+--password: 12345678
+--station-id: b11bdc53-6ef4-4a14-b2fb-2ebafa231533
+--terminal-id: main
+--api-key: jUD-M1QrE46J5cGK1LFMAChhIEOOf3lyJpYqi7XoAmM
+
+select* from type.document
+--Agregar campo código DIAN 
+
+select * from public.product
+select * from public.price
+
+--Crear tabla de impuestos por producto
+
+
+
+PaymentDianModel
+                    {
+                        PaymentForm = "1", --Siempre 1
+                        PaymentMethod = "10", // efectivo --Validar código para transferencia
+                        Amount = diferencia
+                    });
+
+
+
+{
+    Id          = 1,
+    Sku         = sku,
+    Description = productoModel.Nombre,
+    Qty         = paqueteVentaCombustible.Venta.CantidadTotal,
+    UnitCode    = "GLL",
+    UnitPrice   = precioProductoModel.Precio,
+    LineSubtotalAmount = paqueteVentaCombustible.Venta.ValorTotal,
+    LineTotalAmount = paqueteVentaCombustible.Venta.ValorTotal,
+    Taxes = new List<ItemTaxDianModel>
+    {
+        new ItemTaxDianModel
+        {
+            SchemeId     = "01",
+            Percent      = 0,
+            TaxTreatment = "EXCLUDED"
+        }
+    }
+}

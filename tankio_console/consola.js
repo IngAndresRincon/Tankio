@@ -12,7 +12,8 @@ async function startConsole() {
   syncNotifyEmailConfirmation();
   syncGenerateInvoiceToken();
   syncGenerateRequestInvoiceRecord();
-  syncGenerateInvoice();
+  syncGeneratePayloadInvoice();
+  syncRequestInvoice();
 }
 
 //#region
@@ -119,10 +120,22 @@ async function syncGenerateRequestInvoiceRecord() {
   }
 }
 
-async function syncGenerateInvoice() {
+async function syncGeneratePayloadInvoice() {
   while (true) {
     try {
-      await invoiceService.syncGenerateInvoice();
+      await invoiceService.syncGeneratePayloadInvoice();
+    } catch (error) {
+      console.error(error);
+    }
+    await new Promise((resolve) => setTimeout(resolve, 10000)); // Esperar 1 minuto
+  }
+}
+
+
+async function syncRequestInvoice(){
+  while (true) {
+    try {
+      await invoiceService.syncRequestInvoice();
     } catch (error) {
       console.error(error);
     }

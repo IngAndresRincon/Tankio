@@ -153,8 +153,44 @@ exports.incrementSequenceValue = async (record) =>{
 }
 
 
-exports.getListUnprocessedInvoices= async () =>{
+exports.getListUnprocessedInvoices= async (statusCode) =>{
     const query = `SELECT * FROM public.invoice WHERE status_code_invoice = $1;`;
-    const result = await pool.query(query,[0]);
+    const result = await pool.query(query,[statusCode]);
     return result.rowCount>0? result.rows : [];
+}
+
+
+exports.getTaxesByProduct = async (productId) =>{
+    const query = `SELECT 
+                    pt.id as product_tax_id,
+                    pt.product_id,
+                    pt.percentage_value,
+                    pt.active,
+                    t.tax,
+                    t.tax_code,
+                    t.description
+                    FROM public.product_tax as pt
+                    INNER JOIN public.tax as t
+                    ON pt.tax_id = t.id 
+            WHERE pt.product_id = $1 AND pt.active = $2;`;
+    const result = await pool.query(query,[productId,true]);
+    return result.rowCount? result.rows :[];
+}
+
+
+exports.savePayloadRequestInvoice = async(item,payload)=>{
+    const query = `UPDATE public.invoice 
+    SET request_invoice_payload = $1, 
+        modified_at = now(),
+        status_code_invoice = $2
+    WHERE id = $3 RETURNING *;`;
+    const result = await pool.query(query,[payload,1,item.id]);
+    return result.rowCount>0? true : false;
+}
+
+exports.getStationInvoiceConfiguration = async (stationId)=>{
+    const query = `SELECT * FROM public.station_invoice_configuration 
+    WHERE station_id = $1 AND active = $2 LIMIT 1;`;
+    const result = await pool.query(query,[stationId,true]);
+    return result.rowCount>0 ? result.rows[0] : null;
 }

@@ -68,4 +68,4 @@ async function GenerateItemInvoice(record){
 
 }
 
-module.exports = {GenerateItemInvoice,Supplier,Customer};
+module.exports = {GenerateItemInvoice,Supplier,Customer,Taxes,Items,Payments,Invoice};

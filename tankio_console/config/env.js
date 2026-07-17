@@ -32,7 +32,13 @@ const env = {
     city_name :  process.env.CITY_NAME,
     supplier_nit : process.env.SUPPLIER_NIT,
     supplier_dv : process.env.SUPPLIER_DV,
-    supplier_name : process.env.SUPPLIER_NAME
+    supplier_name : process.env.SUPPLIER_NAME,
+    currency: process.env.CURRENCY,
+    energy_unit_code: process.env.ENERGY_UNIT_CODE,
+    fuel_unit_code: process.env.FUEL_UNIT_CODE,
+    default_payment_form : process.env.DEFAULT_PAYMENT_FORM,
+    default_payment_method: process.env.DEFAUTL_PAYMENT_METHOD,
+    tax_treatment_default: process.env.TAX_TREATMENT_DEFAULT
   }
 };
 

@@ -203,3 +203,22 @@ exports.confirmemailuser = async (req, res, next) => {
     return next(error);
   }
 };
+
+exports.changecustomerdetailsinvoice = async (req, res, next) => {
+  try {
+    
+    const {saleid} = req.params;
+    const data = req.body;
+    const result = await userService.changecustomerdetailsinvoice(parseInt(saleid),data);
+
+    return res.status(200).json({
+      message: "Password updated successfully",
+      data: result,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};
+
+
+

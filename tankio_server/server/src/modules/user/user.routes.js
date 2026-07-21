@@ -17,6 +17,10 @@ router.post('/password-recovery/:email', validateApiKey, controller.passwordreco
 router.delete('/delete-account/:userid', validateApiKey, controller.deleteaccount);
 router.get('/confirm-email/:userid', controller.confirmemailuser);
 
+router.patch('/change-customer-details/:saleid', controller.changecustomerdetailsinvoice);
+
+
+
 
 
 

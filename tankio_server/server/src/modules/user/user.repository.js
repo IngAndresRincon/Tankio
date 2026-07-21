@@ -296,3 +296,13 @@ exports.confirmemailuser = async (userid,email) =>{
   const result = await pool.query(query,[true,userid,email]);
   return result.rowCount>0? true:false;
 }
+
+
+exports.changecustomerdetailsinvoice =async (saleid,newData) =>{
+  const query = `UPDATE public.invoice 
+  SET user_payload = $1,
+  status_code_invoice =$2
+  WHERE sale_id = $3 RETURNING *;`;
+  const result = await pool.query(query,[newData,0,saleid]);
+  return result.rowCount>0? result.rows[0] : null;
+}

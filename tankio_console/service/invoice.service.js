@@ -102,16 +102,24 @@ async function processInvoiceInformation(invoice){
           }
 
           let _items = [];
+          let _subTotalAmount = 0
+          // if(itemSale.money!=0){
+          //    _subTotalAmount = calculateTotalAmount(itemSale.money, _taxes);
+          // }
+          
+          const _quantity =  (itemSale.power/1000); // para que la potencia quede en kwh
+          let _priceExcludingTax = parseFloat((itemSale.price / 1.19).toFixed(2));
+          _subTotalAmount = parseFloat( (_priceExcludingTax * _quantity).toFixed(2));
 
           _items.unshift(
             new Items(
               itemSale.id,
               itemSale.product_code,
               itemSale.product_name,
-              itemSale.power,
+              (itemSale.power/1000),
               env.invoice.energy_unit_code,
-              itemSale.price,
-              itemSale.money,
+              _priceExcludingTax,//itemSale.price,
+              _subTotalAmount,
               itemSale.money,
               _taxes
             ) );
@@ -139,10 +147,11 @@ async function processInvoiceInformation(invoice){
             itemSale.money
           ));
           
+          const stationConfig = await invoiceRepository.getStationInvoiceConfiguration(itemSale.station_id);
 
-
+          const _postTransactionId = `${stationConfig.station_id_invoice}-${stationConfig.terminal_id_invoice}-'03'-${itemSale.uuid}`;
           _invoice = new Invoice(
-          itemSale.uuid,
+          _postTransactionId,
           _issueDate,
           _issueTime,
           env.invoice.currency,
@@ -160,6 +169,18 @@ async function processInvoiceInformation(invoice){
   return _invoice;
 }
 
+
+function calculateTotalAmount(amount,taxes){
+
+  let _tax_accumulation = 0;
+
+  taxes.forEach(e => {
+    const valueTax = (e.percent * amount)/100;
+    _tax_accumulation +=valueTax;
+  });
+
+  return (amount - _tax_accumulation);
+}
 
 function generateFormatDate(){
   const now = new Date(); 
@@ -197,15 +218,32 @@ exports.syncRequestInvoice = async() =>{
         if(list.length>0){
           for(let i=0; i< list.length; i++){
             const item = list[i];
-            const stationConfig = await invoiceRepository.getStationInvoiceConfiguration(item.station_id);
-            const endpoint = `api/operations/invoices?stationId=${stationConfig.station_id_invoice}`;
-            const response = await GenerateInvoice('post',endpoint,stationConfig,item.request_invoice_payload);
+            await requestInvoice(item);
+            await new Promise((resolve) => setTimeout(resolve, 1000)); // Esperar 1 minuto
           }
 
         }
     } catch (e) {
         console.error(e.message);
     }
+}
+
+async function requestInvoice(item){
+  try {
+    const stationConfig = await invoiceRepository.getStationInvoiceConfiguration(item.station_id);
+    const endpoint = `api/operations/invoices?stationId=${stationConfig.station_id_invoice}`;
+    const response = await GenerateInvoice('post',endpoint,stationConfig,item.request_invoice_payload);
+    if(response.status === 200 || response.status ===201){
+      console.log(JSON.stringify(response.data));
+      const _invoiceNumber = response.data.invoiceNumber;
+      await invoiceRepository.updateResponseInvoiceRequest(item, response.data,2,_invoiceNumber);
+    }else{
+      const _invoiceNumber = 0;
+      await invoiceRepository.updateResponseInvoiceRequest(item, response.data,3,_invoiceNumber);
+    }
+  } catch (e) {
+    console.error(e.message);
+  }
 }
 
 //#endregion

@@ -154,7 +154,10 @@ exports.incrementSequenceValue = async (record) =>{
 
 
 exports.getListUnprocessedInvoices= async (statusCode) =>{
-    const query = `SELECT * FROM public.invoice WHERE status_code_invoice = $1;`;
+
+    // La consulta permite trar las información de registros listos para facturar cuya fecha haya pasado hace 5 minutos
+    const query = `SELECT * FROM public.invoice 
+    WHERE status_code_invoice = $1 AND (created_at < NOW() - INTERVAL '5 minutes');`;
     const result = await pool.query(query,[statusCode]);
     return result.rowCount>0? result.rows : [];
 }
@@ -193,4 +196,18 @@ exports.getStationInvoiceConfiguration = async (stationId)=>{
     WHERE station_id = $1 AND active = $2 LIMIT 1;`;
     const result = await pool.query(query,[stationId,true]);
     return result.rowCount>0 ? result.rows[0] : null;
+}
+
+
+exports.updateResponseInvoiceRequest = async (item,response,statusId,invoiceNumber)=>{
+
+
+    const query = `UPDATE public.invoice 
+    SET response_invoice_payload = $1,
+        status_code_invoice = $2,
+        invoice_number = $3,
+        modified_at = now()
+    WHERE id = $4 RETURNING *;`;
+    const result = await pool.query(query,[response,statusId,invoiceNumber,item.id]);
+    return result.rowCount>0? result.rows[0] : null;
 }

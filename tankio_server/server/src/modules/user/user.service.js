@@ -296,3 +296,25 @@ exports.confirmemailuser =async (userid,email) =>{
 }
 
 
+exports.changecustomerdetailsinvoice = async(saleid,data) =>{
+
+  const newData= {
+  "name": "qa",
+  "email": "insepet123@insepet.com",
+  "user_id": 19,
+  "document": "NIT",
+  "last_name": "Insepet",
+  "phone_number": "3504355643",
+  "document_number": "830071049",
+  "document_type_id": 1,
+  "document_type_code": "31"
+};
+
+  const result = await userRepository.changecustomerdetailsinvoice(saleid,data);
+
+  if(!result){
+    return false;
+  }
+  return true;
+
+}

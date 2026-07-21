@@ -1,5 +1,8 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tankio/models/invoice_model.dart';
 import 'package:tankio/models/sale_model.dart';
 import 'package:tankio/provider/loading.dart';
 import 'package:tankio/provider/user.dart';
@@ -15,6 +18,13 @@ class SaleProvider extends ChangeNotifier {
   UserProvider get _user => ref.read(userProvider);
   SaleService get _sale => ref.read(saleServiceProvider);
   LoadingNotifier get _loading => ref.read(loadingProvider.notifier);
+  InvoiceModel? invoice;
+
+  List<DropdownMenuItem<String>> documentTypeList = const [
+    DropdownMenuItem(value: '1', child: Text('NIT')),
+    DropdownMenuItem(value: '2', child: Text('CC')),
+    DropdownMenuItem(value: '3', child: Text('CE')),
+  ];
 
   List<Map<String, dynamic>> activityFilterOptions = [
     {"id": 1, "label": "All", "active": true},
@@ -41,6 +51,14 @@ class SaleProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  final controllerInvoiceName = TextEditingController();
+  final controllerInvoiceLastName = TextEditingController();
+  final controllerInvoiceEmail = TextEditingController();
+  final controllerInvoiceDocumentType = TextEditingController();
+  final controllerInvoiceDocumentNumber = TextEditingController();
+  String? selectedDocumentType;
+  final controllerInvoicePhoneNumber = TextEditingController();
+
   Future<void> getSaleByUserId() async {
     _loading.show();
     try {
@@ -63,6 +81,76 @@ class SaleProvider extends ChangeNotifier {
       notifyListeners();
       _loading.hide();
     }
+  }
+
+  Future<void> getInvoiceInformationBySale({required int saleid}) async {
+    try {
+      invoice = null;
+      _loading.show();
+      final response = await _sale.getInvoicBySaleId(saleid: saleid);
+      if (response.statusCode == 200) {
+        debugPrint(jsonEncode(response.data));
+        invoice = InvoiceModel.fromJson(response.data['data']);
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      _loading.hide();
+      notifyListeners();
+    }
+  }
+
+  void loadInvoiceCustomerData() {
+    try {
+      if (invoice != null) {
+        controllerInvoiceName.text = invoice!.userPayload.name;
+        controllerInvoiceLastName.text = invoice!.userPayload.lastName;
+        controllerInvoiceEmail.text = invoice!.userPayload.email;
+        controllerInvoicePhoneNumber.text = invoice!.userPayload.phoneNumber;
+        controllerInvoiceDocumentNumber.text =
+            invoice!.userPayload.documentNumber;
+        selectedDocumentType = invoice!.userPayload.documentTypeId.toString();
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      notifyListeners();
+    }
+  }
+
+  Future<bool> updateInvoiceCustomerData() async {
+    _loading.show();
+    try {
+      final DropdownMenuItem documentLabel = documentTypeList.firstWhere(
+        (e) => e.value == selectedDocumentType,
+      );
+
+      final Map payload = {
+        "name": controllerInvoiceName.text.trim(),
+        "email": controllerInvoiceEmail.text.trim(),
+        "user_id": _user.userLogin!.info.user.id,
+        "document": (documentLabel.child as Text).data ?? '',
+        "last_name": controllerInvoiceLastName.text.trim(),
+        "phone_number": controllerInvoicePhoneNumber.text.trim(),
+        "document_number": controllerInvoiceDocumentNumber.text.trim(),
+        "document_type_id": int.parse(selectedDocumentType ?? "0"),
+        "document_type_code": "31", // se reemplaza en backend
+      };
+
+      final response = await _sale.updateInvoiceCustomerData(
+        saleid: invoice!.saleId,
+        payload: payload,
+      );
+      if (response.statusCode == 200) {
+        debugPrint(jsonEncode(response.data['data']));
+        return true;
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    } finally {
+      _loading.hide();
+    }
+    return false;
   }
 }
 

@@ -32,3 +32,19 @@ exports.getsalebyuser = async (req, res, next) => {
   }
 };
 
+
+
+exports.getinvoicebysale = async  (req, res, next) => {
+  try {
+    
+    const {saleid} = req.params;
+    const sale = await saleService.getinvoicebysale(saleid);
+
+    return res.status(200).json({
+      message: "Invoice",
+      data: sale,
+    });
+  } catch (error) {
+    return next(error);
+  }
+};

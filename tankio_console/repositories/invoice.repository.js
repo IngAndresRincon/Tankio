@@ -155,7 +155,7 @@ exports.incrementSequenceValue = async (record) =>{
 
 exports.getListUnprocessedInvoices= async (statusCode) =>{
 
-    // La consulta permite trar las información de registros listos para facturar cuya fecha haya pasado hace 5 minutos
+    // La consulta permite traer las información de registros listos para facturar cuya fecha haya pasado hace 5 minutos
     const query = `SELECT * FROM public.invoice 
     WHERE status_code_invoice = $1 AND (created_at < NOW() - INTERVAL '5 minutes');`;
     const result = await pool.query(query,[statusCode]);

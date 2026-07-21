@@ -107,3 +107,9 @@ exports.getsalebyuser = async (id) => {
   
 };
 
+
+exports.getinvoicebysale = async(saleid)=>{
+  const query = `SELECT * FROM public.invoice WHERE sale_id = $1 LIMIT 1;`;
+  const result = await pool.query(query,[saleid]);
+  return result.rowCount>0? result.rows[0] : null;
+}

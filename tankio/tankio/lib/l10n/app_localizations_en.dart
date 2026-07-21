@@ -1069,4 +1069,133 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get rememberPasswordPrompt => 'Remember your password? ';
+
+  @override
+  String get invoiceTitle => 'Invoice';
+
+  @override
+  String get noInvoiceDataTitle => 'No data available';
+
+  @override
+  String get noInvoiceDataMessage =>
+      'The invoice information is not available for this sale yet.';
+
+  @override
+  String get invoiceDetailsTitle => 'Invoice details';
+
+  @override
+  String get invoiceDetailsSubtitle =>
+      'Review the status, customer data and main invoice information.';
+
+  @override
+  String get invoiceStatusTitle => 'Invoice status';
+
+  @override
+  String get invoiceStatusLabel => 'Status';
+
+  @override
+  String get invoicePendingStatus => 'Pending';
+
+  @override
+  String get invoiceGeneratedStatus => 'Generated';
+
+  @override
+  String get invoiceErrorStatus => 'Error';
+
+  @override
+  String get invoicePendingStatusMessage =>
+      'The invoice has not been generated yet.';
+
+  @override
+  String get invoiceGeneratedStatusMessage =>
+      'The invoice was generated successfully.';
+
+  @override
+  String get invoiceErrorStatusMessage =>
+      'An error occurred while processing the invoice.';
+
+  @override
+  String get saleChipLabel => 'Sale';
+
+  @override
+  String get invoiceNumberHeading => 'Invoice #';
+
+  @override
+  String get invoiceSequenceLabel => 'Sequence';
+
+  @override
+  String get invoiceCustomerTitle => 'Customer';
+
+  @override
+  String get customerNameLabel => 'Name';
+
+  @override
+  String get customerDocumentLabel => 'Document';
+
+  @override
+  String get customerEmailLabel => 'Email';
+
+  @override
+  String get customerPhoneLabel => 'Phone';
+
+  @override
+  String get invoiceSaleSummaryTitle => 'Sale summary';
+
+  @override
+  String get invoiceProductLabel => 'Product';
+
+  @override
+  String get invoicePriceLabel => 'Price';
+
+  @override
+  String get invoiceTotalLabel => 'Total';
+
+  @override
+  String get invoiceDateLabel => 'Date';
+
+  @override
+  String get invoiceDianResultTitle => 'DIAN result';
+
+  @override
+  String get invoiceMessageLabel => 'Message';
+
+  @override
+  String get invoiceCufeLabel => 'CUFE';
+
+  @override
+  String get invoiceQrCodeLabel => 'QR CODE';
+
+  @override
+  String get invoiceNumberLabel => 'Number';
+
+  @override
+  String get invoiceErrorLabel => 'Error';
+
+  @override
+  String get invoiceEnvironmentLabel => 'Environment';
+
+  @override
+  String get invoicePendingBannerMessage =>
+      'The invoice is pending. You can modify the customer data before it is generated.';
+
+  @override
+  String get editCustomerTitle => 'Edit customer';
+
+  @override
+  String get editCustomerErrorMessage => 'Could not update the customer data.';
+
+  @override
+  String get viewPurchaseInvoiceButtonLabel => 'View purchase invoice';
+
+  @override
+  String get viewOnlineButtonLabel => 'View online';
+
+  @override
+  String get viewInvoiceTitle => 'DIAN invoice';
+
+  @override
+  String get viewInvoiceLoadingMessage => 'Loading DIAN invoice...';
+
+  @override
+  String get viewInvoiceErrorMessage => 'No invoice URL available.';
 }

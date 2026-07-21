@@ -297,6 +297,12 @@ exports.confirmemailuser = async (userid,email) =>{
   return result.rowCount>0? true:false;
 }
 
+exports.findDianCodeDocumenType = async (documentTypeId) =>{
+  const query = `SELECT dian_code FROM type.document WHERE id = $1 LIMIT 1;`;
+  const result = await pool.query(query,[documentTypeId]);
+  return result.rowCount>0? result.rows[0]['dian_code'] : null;
+}
+
 
 exports.changecustomerdetailsinvoice =async (saleid,newData) =>{
   const query = `UPDATE public.invoice 

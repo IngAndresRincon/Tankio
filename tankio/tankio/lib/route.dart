@@ -6,6 +6,7 @@ import 'package:tankio/screen/change_password.dart';
 import 'package:tankio/screen/create_account.dart';
 import 'package:tankio/screen/delete_account.dart';
 import 'package:tankio/screen/inselect_schedule.dart';
+import 'package:tankio/screen/invoice.dart';
 import 'package:tankio/screen/login.dart';
 import 'package:tankio/screen/notifications.dart';
 import 'package:tankio/screen/payment_gateway/epayco.dart';
@@ -81,6 +82,12 @@ class AppRouter {
           settings,
           InselectSchedule(positionCode: positionCode),
         );
+
+      case '/invoice':
+        final args = settings.arguments;
+        final saleid = args is TankioSaleArgs ? args.saleId : 0;
+        return _buildRoute(settings, Invoice(saleId: saleid));
+
       case '/activity-electric-charger':
         return _buildRoute(settings, ActivityElectricCharger());
       case '/balance-movements':

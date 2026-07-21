@@ -16,6 +16,10 @@ const env = {
   apiKey: process.env.API_KEY,
   jwtsecret: process.env.JWT_SECRET,
   refreshsecret: process.env.REFRESH_SECRET,
+  fe:{
+    dian_url_qa: process.env.DIAN_URL_QA,
+    dian_url_productive:process.env.DIAN_URL_PRODUCTIVE
+  },
   db: {
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,

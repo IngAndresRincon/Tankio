@@ -2113,6 +2113,252 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Remember your password? '**
   String get rememberPasswordPrompt;
+
+  /// No description provided for @invoiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice'**
+  String get invoiceTitle;
+
+  /// No description provided for @noInvoiceDataTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'No data available'**
+  String get noInvoiceDataTitle;
+
+  /// No description provided for @noInvoiceDataMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The invoice information is not available for this sale yet.'**
+  String get noInvoiceDataMessage;
+
+  /// No description provided for @invoiceDetailsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice details'**
+  String get invoiceDetailsTitle;
+
+  /// No description provided for @invoiceDetailsSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review the status, customer data and main invoice information.'**
+  String get invoiceDetailsSubtitle;
+
+  /// No description provided for @invoiceStatusTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice status'**
+  String get invoiceStatusTitle;
+
+  /// No description provided for @invoiceStatusLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Status'**
+  String get invoiceStatusLabel;
+
+  /// No description provided for @invoicePendingStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Pending'**
+  String get invoicePendingStatus;
+
+  /// No description provided for @invoiceGeneratedStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Generated'**
+  String get invoiceGeneratedStatus;
+
+  /// No description provided for @invoiceErrorStatus.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get invoiceErrorStatus;
+
+  /// No description provided for @invoicePendingStatusMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The invoice has not been generated yet.'**
+  String get invoicePendingStatusMessage;
+
+  /// No description provided for @invoiceGeneratedStatusMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The invoice was generated successfully.'**
+  String get invoiceGeneratedStatusMessage;
+
+  /// No description provided for @invoiceErrorStatusMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'An error occurred while processing the invoice.'**
+  String get invoiceErrorStatusMessage;
+
+  /// No description provided for @saleChipLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale'**
+  String get saleChipLabel;
+
+  /// No description provided for @invoiceNumberHeading.
+  ///
+  /// In en, this message translates to:
+  /// **'Invoice #'**
+  String get invoiceNumberHeading;
+
+  /// No description provided for @invoiceSequenceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Sequence'**
+  String get invoiceSequenceLabel;
+
+  /// No description provided for @invoiceCustomerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Customer'**
+  String get invoiceCustomerTitle;
+
+  /// No description provided for @customerNameLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Name'**
+  String get customerNameLabel;
+
+  /// No description provided for @customerDocumentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Document'**
+  String get customerDocumentLabel;
+
+  /// No description provided for @customerEmailLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get customerEmailLabel;
+
+  /// No description provided for @customerPhoneLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Phone'**
+  String get customerPhoneLabel;
+
+  /// No description provided for @invoiceSaleSummaryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Sale summary'**
+  String get invoiceSaleSummaryTitle;
+
+  /// No description provided for @invoiceProductLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Product'**
+  String get invoiceProductLabel;
+
+  /// No description provided for @invoicePriceLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Price'**
+  String get invoicePriceLabel;
+
+  /// No description provided for @invoiceTotalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Total'**
+  String get invoiceTotalLabel;
+
+  /// No description provided for @invoiceDateLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Date'**
+  String get invoiceDateLabel;
+
+  /// No description provided for @invoiceDianResultTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'DIAN result'**
+  String get invoiceDianResultTitle;
+
+  /// No description provided for @invoiceMessageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Message'**
+  String get invoiceMessageLabel;
+
+  /// No description provided for @invoiceCufeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'CUFE'**
+  String get invoiceCufeLabel;
+
+  /// No description provided for @invoiceQrCodeLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'QR CODE'**
+  String get invoiceQrCodeLabel;
+
+  /// No description provided for @invoiceNumberLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Number'**
+  String get invoiceNumberLabel;
+
+  /// No description provided for @invoiceErrorLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get invoiceErrorLabel;
+
+  /// No description provided for @invoiceEnvironmentLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Environment'**
+  String get invoiceEnvironmentLabel;
+
+  /// No description provided for @invoicePendingBannerMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The invoice is pending. You can modify the customer data before it is generated.'**
+  String get invoicePendingBannerMessage;
+
+  /// No description provided for @editCustomerTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Edit customer'**
+  String get editCustomerTitle;
+
+  /// No description provided for @editCustomerErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Could not update the customer data.'**
+  String get editCustomerErrorMessage;
+
+  /// No description provided for @viewPurchaseInvoiceButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'View purchase invoice'**
+  String get viewPurchaseInvoiceButtonLabel;
+
+  /// No description provided for @viewOnlineButtonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'View online'**
+  String get viewOnlineButtonLabel;
+
+  /// No description provided for @viewInvoiceTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'DIAN invoice'**
+  String get viewInvoiceTitle;
+
+  /// No description provided for @viewInvoiceLoadingMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading DIAN invoice...'**
+  String get viewInvoiceLoadingMessage;
+
+  /// No description provided for @viewInvoiceErrorMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'No invoice URL available.'**
+  String get viewInvoiceErrorMessage;
 }
 
 class _AppLocalizationsDelegate

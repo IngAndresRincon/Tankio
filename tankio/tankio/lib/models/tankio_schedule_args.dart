@@ -9,3 +9,8 @@ class InselectScheduleArgs {
 
   const InselectScheduleArgs({required this.positionCode});
 }
+
+class TankioSaleArgs {
+  final int saleId;
+  const TankioSaleArgs({required this.saleId});
+}

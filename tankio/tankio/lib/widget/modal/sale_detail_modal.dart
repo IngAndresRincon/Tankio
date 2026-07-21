@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:tankio/l10n/app_localizations.dart';
 import 'package:tankio/models/sale_model.dart';
+import 'package:tankio/models/tankio_schedule_args.dart';
 
 class SaleDetailModal extends StatelessWidget {
   final SaleModel sale;
@@ -12,10 +13,7 @@ class SaleDetailModal extends StatelessWidget {
     return NumberFormat.decimalPattern('es_CO').format(value);
   }
 
-  (String, Color, IconData) _statusData(
-    AppLocalizations l10n,
-    bool zeroSale,
-  ) {
+  (String, Color, IconData) _statusData(AppLocalizations l10n, bool zeroSale) {
     if (zeroSale) {
       return (
         l10n.reservationLabel,
@@ -34,8 +32,8 @@ class SaleDetailModal extends StatelessWidget {
 
     return DraggableScrollableSheet(
       expand: false,
-      initialChildSize: 0.7,
-      minChildSize: 0.45,
+      initialChildSize: 0.8,
+      minChildSize: 0.5,
       maxChildSize: 0.9,
       builder: (context, scrollController) {
         return Container(
@@ -120,7 +118,46 @@ class SaleDetailModal extends StatelessWidget {
                         ),
                       ],
                     ),
-                    const SizedBox(height: 18),
+                    const SizedBox(height: 20),
+
+                    Container(
+                      width: double.infinity,
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      decoration: BoxDecoration(
+                        color: const Color(0xFFF8FAFC),
+                        borderRadius: BorderRadius.circular(30),
+                        border: Border.all(color: const Color(0xFFCBD5E1)),
+                      ),
+                      child: TextButton.icon(
+                        onPressed: () {
+                          Navigator.popAndPushNamed(
+                            context,
+                            '/invoice',
+                            arguments: TankioSaleArgs(saleId: sale.saleId),
+                          );
+                        },
+                        icon: Icon(
+                          Icons.receipt_long_rounded,
+                          color: Color(0xFF0F766E),
+                          size: size.width * 0.06,
+                        ),
+                        label: Text(
+                          l10n.viewPurchaseInvoiceButtonLabel,
+                          style: TextStyle(
+                            fontFamily: 'Nunito',
+                            fontSize: size.width * 0.035,
+                            fontWeight: FontWeight.w800,
+                            color: Color(0xFF0F766E),
+                          ),
+                        ),
+                        style: TextButton.styleFrom(
+                          padding: const EdgeInsets.symmetric(vertical: 10),
+                          alignment: Alignment.centerLeft,
+                        ),
+                      ),
+                    ),
+
+                    const SizedBox(height: 15),
                     _SectionCard(
                       title: l10n.purchaseInformationTitle,
                       children: [
@@ -128,20 +165,39 @@ class SaleDetailModal extends StatelessWidget {
                           label: l10n.saleIdLabel,
                           value: sale.saleId.toString(),
                         ),
-                        _DetailRow(label: l10n.systemLabel, value: sale.systemName),
-                        _DetailRow(label: l10n.groupLabel, value: sale.groupName),
-                        _DetailRow(label: l10n.companyLabel, value: sale.stationName),
+                        _DetailRow(
+                          label: l10n.systemLabel,
+                          value: sale.systemName,
+                        ),
+                        _DetailRow(
+                          label: l10n.groupLabel,
+                          value: sale.groupName,
+                        ),
+                        _DetailRow(
+                          label: l10n.companyLabel,
+                          value: sale.stationName,
+                        ),
                         _DetailRow(
                           label: l10n.stationAddressLabel,
                           value: sale.stationAddress,
                         ),
-                        _DetailRow(label: l10n.productLabel, value: sale.productName),
-                        _DetailRow(label: l10n.identifierLabel, value: sale.identifier),
+                        _DetailRow(
+                          label: l10n.productLabel,
+                          value: sale.productName,
+                        ),
+                        _DetailRow(
+                          label: l10n.identifierLabel,
+                          value: sale.identifier,
+                        ),
                         _DetailRow(
                           label: l10n.programmingMoneyLabel,
                           value: '\$ ${_formatAmount(sale.programmingMoney)}',
                         ),
-                        _DetailRow(label: l10n.balanceLabel, value: '\$ ${_formatAmount(sale.balance)}'),
+                        _DetailRow(
+                          label: l10n.balanceLabel,
+                          value: '\$ ${_formatAmount(sale.balance)}',
+                          isLast: true,
+                        ),
                       ],
                     ),
                     const SizedBox(height: 18),
@@ -172,12 +228,13 @@ class SaleDetailModal extends StatelessWidget {
                         _DetailRow(
                           label: l10n.finalDateLabel,
                           value: sale.finalDateSale,
-                        ),
-                        _DetailRow(
-                          label: l10n.zeroSaleLabel,
-                          value: sale.zeroSale ? l10n.yesLabel : l10n.noLabel,
                           isLast: true,
                         ),
+                        // _DetailRow(
+                        //   label: l10n.zeroSaleLabel,
+                        //   value: sale.zeroSale ? l10n.yesLabel : l10n.noLabel,
+                        //   isLast: true,
+                        // ),
                       ],
                     ),
                     const SizedBox(height: 18),
@@ -213,6 +270,7 @@ class SaleDetailModal extends StatelessWidget {
                     //   ],
                     // ),
                     // const SizedBox(height: 18),
+                    const SizedBox(height: 18),
                     Center(
                       child: TextButton(
                         onPressed: () => Navigator.of(context).pop(),

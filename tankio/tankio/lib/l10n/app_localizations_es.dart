@@ -1072,4 +1072,135 @@ class AppLocalizationsEs extends AppLocalizations {
 
   @override
   String get rememberPasswordPrompt => '¿Recuerdas tu contraseña? ';
+
+  @override
+  String get invoiceTitle => 'Factura';
+
+  @override
+  String get noInvoiceDataTitle => 'No hay datos';
+
+  @override
+  String get noInvoiceDataMessage =>
+      'La informacion de la factura aun no esta disponible para esta venta.';
+
+  @override
+  String get invoiceDetailsTitle => 'Detalles de la factura';
+
+  @override
+  String get invoiceDetailsSubtitle =>
+      'Revisa el estado, los datos del customer y la informacion principal de la factura.';
+
+  @override
+  String get invoiceStatusTitle => 'Estado de la factura';
+
+  @override
+  String get invoiceStatusLabel => 'Estado';
+
+  @override
+  String get invoicePendingStatus => 'Pendiente';
+
+  @override
+  String get invoiceGeneratedStatus => 'Generada';
+
+  @override
+  String get invoiceErrorStatus => 'Error';
+
+  @override
+  String get invoicePendingStatusMessage =>
+      'La factura aun no ha sido generada.';
+
+  @override
+  String get invoiceGeneratedStatusMessage =>
+      'La factura se genero correctamente.';
+
+  @override
+  String get invoiceErrorStatusMessage =>
+      'Ocurrio un error al procesar la factura.';
+
+  @override
+  String get saleChipLabel => 'Venta';
+
+  @override
+  String get invoiceNumberHeading => 'Factura #';
+
+  @override
+  String get invoiceSequenceLabel => 'Secuencia';
+
+  @override
+  String get invoiceCustomerTitle => 'Cliente';
+
+  @override
+  String get customerNameLabel => 'Nombre';
+
+  @override
+  String get customerDocumentLabel => 'Documento';
+
+  @override
+  String get customerEmailLabel => 'Correo';
+
+  @override
+  String get customerPhoneLabel => 'Telefono';
+
+  @override
+  String get invoiceSaleSummaryTitle => 'Resumen de la venta';
+
+  @override
+  String get invoiceProductLabel => 'Producto';
+
+  @override
+  String get invoicePriceLabel => 'Precio';
+
+  @override
+  String get invoiceTotalLabel => 'Total';
+
+  @override
+  String get invoiceDateLabel => 'Fecha';
+
+  @override
+  String get invoiceDianResultTitle => 'Resultado DIAN';
+
+  @override
+  String get invoiceMessageLabel => 'Mensaje';
+
+  @override
+  String get invoiceCufeLabel => 'CUFE';
+
+  @override
+  String get invoiceQrCodeLabel => 'CÓDIGO QR';
+
+  @override
+  String get invoiceNumberLabel => 'Numero';
+
+  @override
+  String get invoiceErrorLabel => 'Error';
+
+  @override
+  String get invoiceEnvironmentLabel => 'Ambiente';
+
+  @override
+  String get invoicePendingBannerMessage =>
+      'La factura esta pendiente. Puedes modificar los datos del customer antes de que sea generada.';
+
+  @override
+  String get editCustomerTitle => 'Editar customer';
+
+  @override
+  String get editCustomerErrorMessage =>
+      'No se pudieron actualizar los datos del customer.';
+
+  @override
+  String get viewPurchaseInvoiceButtonLabel => 'Ver factura de compra';
+
+  @override
+  String get viewOnlineButtonLabel => 'Ver en línea';
+
+  @override
+  String get viewInvoiceTitle => 'Factura DIAN';
+
+  @override
+  String get viewInvoiceLoadingMessage => 'Cargando factura DIAN...';
+
+  @override
+  String get viewInvoiceErrorMessage =>
+      'No hay una URL disponible para la factura.';
 }

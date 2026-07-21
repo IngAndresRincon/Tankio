@@ -65,14 +65,14 @@ exports.syncGeneratePayloadInvoice = async()=>{
         const list = await invoiceRepository.getListUnprocessedInvoices(0);
         if(list.length>0){         
 
-            for(let i =0; i< list.length; i++){
-                const item = list[i];
-                const invoice = await processInvoiceInformation(item);
-                if(!invoice) continue;
-                await invoiceRepository.savePayloadRequestInvoice(item, invoice);
-                await new Promise((resolve) => setTimeout(resolve, 1000)); // Esperar 1 minuto
-                //const itemInvoice =await GenerateItemInvoice(item);
-            }
+          for(let i =0; i< list.length; i++){
+              const item = list[i];
+              const invoice = await processInvoiceInformation(item);
+              if(!invoice) continue;
+              await invoiceRepository.savePayloadRequestInvoice(item, invoice);
+              await new Promise((resolve) => setTimeout(resolve, 1000)); // Esperar 1 minuto
+              //const itemInvoice =await GenerateItemInvoice(item);
+          }
         }
     } catch (e) {
         console.error(e.message);

@@ -308,7 +308,7 @@ exports.changecustomerdetailsinvoice =async (saleid,newData) =>{
   const query = `UPDATE public.invoice 
   SET user_payload = $1,
   status_code_invoice =$2
-  WHERE sale_id = $3 RETURNING *;`;
+  WHERE sale_id = $3 AND status_code_invoice = $2 RETURNING *;`;
   const result = await pool.query(query,[newData,0,saleid]);
   return result.rowCount>0? result.rows[0] : null;
 }

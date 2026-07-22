@@ -26,13 +26,21 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>GoogleMapsAPIKey</key>
 	<string>AIzaSyD4_H3m_5Yl1OpWtvtOkYXpgrld8KcKnog</string>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>comgooglemaps</string>
 		<string>waze</string>
 	</array>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>NSCameraUsageDescription</key>
+	<string>Se necesita acceso a la cámara para escanear códigos QR.</string>
+	<key>NSFaceIDUsageDescription</key>
+	<string>Se necesita Face ID para autenticación biométrica.</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Se necesita tu ubicación para mostrar estaciones y calcular rutas.</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Se necesita tu ubicación para mostrar estaciones y calcular rutas.</string>
 	<key>UIApplicationSceneManifest</key>
 	<dict>
 		<key>UIApplicationSupportsMultipleScenes</key>
@@ -60,26 +68,14 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
-	<key>NSCameraUsageDescription</key>
-	<string>Se necesita acceso a la cámara para escanear códigos QR.</string>
-	<key>NSFaceIDUsageDescription</key>
-	<string>Se necesita Face ID para autenticación biométrica.</string>
-	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Se necesita tu ubicación para mostrar estaciones y calcular rutas.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Se necesita tu ubicación para mostrar estaciones y calcular rutas.</string>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 </dict>
 </plist>

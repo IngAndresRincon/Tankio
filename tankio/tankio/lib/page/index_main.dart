@@ -171,7 +171,7 @@ class _MainPageState extends ConsumerState<MainPage> {
           children: [
             Container(
               width: double.infinity,
-              height: size.height * 0.27,
+              height: size.height * (size.height < 670 ? 0.35 : 0.27),
               padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(20),

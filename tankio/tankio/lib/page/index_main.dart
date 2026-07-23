@@ -647,7 +647,9 @@ class _MainPageState extends ConsumerState<MainPage> {
                                         color: Colors.white,
                                       ),
                                       child: Text(
-                                        item.status.toUpperCase(),
+                                        item.status.toUpperCase() == "SUPPLYING"
+                                            ? "DESPACHANDO"
+                                            : item.status.toUpperCase(),
                                         style: TextStyle(
                                           fontFamily: 'Nunito',
                                           fontWeight: FontWeight.w800,

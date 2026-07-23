@@ -110,7 +110,7 @@ class _ProgrammingDetailModalState
                           _buildDetailRow(
                             size,
                             l10n.valueLabel,
-                            programming.programmingValue.toString(),
+                            "${programming.programmingValue.toString()} watts",
                           ),
                           _buildDetailRow(
                             size,

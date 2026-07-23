@@ -215,11 +215,11 @@ class SaleDetailModal extends StatelessWidget {
 
                         _DetailRow(
                           label: l10n.powerLabel,
-                          value: _formatAmount(sale.power),
+                          value: "${_formatAmount(sale.power)} watts",
                         ),
                         _DetailRow(
                           label: l10n.totalPowerLabel,
-                          value: _formatAmount(sale.totalPower),
+                          value: "${_formatAmount(sale.totalPower)} watts",
                         ),
                         _DetailRow(
                           label: l10n.initialDateLabel,

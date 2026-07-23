@@ -106,11 +106,11 @@ class SaleDetailModal extends StatelessWidget {
                                       alpha: 0.12,
                                     ),
                                   ),
-                                  _StatusChip(
-                                    label: sale.programmingType,
-                                    color: const Color(0xFF60AF47),
-                                    backgroundColor: const Color(0xFFEAF6E5),
-                                  ),
+                                  // _StatusChip(
+                                  //   label: sale.programmingType,
+                                  //   color: const Color(0xFF60AF47),
+                                  //   backgroundColor: const Color(0xFFEAF6E5),
+                                  // ),
                                 ],
                               ),
                             ],

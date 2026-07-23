@@ -1165,60 +1165,66 @@ class _InvoiceState extends ConsumerState<Invoice> {
                                     ),
 
                                   if (qrcode.isNotEmpty)
-                                    Container(
-                                      padding: const EdgeInsets.only(
-                                        top: 12,
-                                        bottom: 12,
-                                      ),
-                                      child: Row(
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
-                                        children: [
-                                          SizedBox(
-                                            width: 110,
-                                            child: Text(
-                                              l10n.invoiceQrCodeLabel,
-                                              style: TextStyle(
-                                                fontFamily: 'Nunito',
-                                                fontSize: 13,
-                                                fontWeight: FontWeight.w700,
-                                                color: Colors.grey.shade600,
+                                    Visibility(
+                                      visible: !pending,
+                                      child: Container(
+                                        padding: const EdgeInsets.only(
+                                          top: 12,
+                                          bottom: 12,
+                                        ),
+                                        child: Row(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            SizedBox(
+                                              width: 110,
+                                              child: Text(
+                                                l10n.invoiceQrCodeLabel,
+                                                style: TextStyle(
+                                                  fontFamily: 'Nunito',
+                                                  fontSize: 13,
+                                                  fontWeight: FontWeight.w700,
+                                                  color: Colors.grey.shade600,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          Expanded(
-                                            child: Center(
-                                              child: QrImageView(
-                                                data: qrcode,
-                                                version: QrVersions.auto,
-                                                size: size.width * 0.7,
+                                            Expanded(
+                                              child: Center(
+                                                child: QrImageView(
+                                                  data: qrcode,
+                                                  version: QrVersions.auto,
+                                                  size: size.width * 0.7,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
+                                          ],
+                                        ),
                                       ),
                                     ),
 
-                                  TextButton(
-                                    onPressed: cufe.isNotEmpty
-                                        ? () {
-                                            Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (_) =>
-                                                    ViewInvoice(url: qrcode),
-                                              ),
-                                            );
-                                          }
-                                        : null,
-                                    child: Text(
-                                      l10n.viewOnlineButtonLabel,
-                                      style: TextStyle(
-                                        fontFamily: 'Nunito',
-                                        fontSize: size.width * 0.036,
-                                        color: Colors.blueGrey.shade900,
-                                        fontWeight: FontWeight.w600,
-                                        decoration: TextDecoration.underline,
+                                  Visibility(
+                                    visible: !pending,
+                                    child: TextButton(
+                                      onPressed: cufe.isNotEmpty
+                                          ? () {
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (_) =>
+                                                      ViewInvoice(url: qrcode),
+                                                ),
+                                              );
+                                            }
+                                          : null,
+                                      child: Text(
+                                        l10n.viewOnlineButtonLabel,
+                                        style: TextStyle(
+                                          fontFamily: 'Nunito',
+                                          fontSize: size.width * 0.036,
+                                          color: Colors.blueGrey.shade900,
+                                          fontWeight: FontWeight.w600,
+                                          decoration: TextDecoration.underline,
+                                        ),
                                       ),
                                     ),
                                   ),

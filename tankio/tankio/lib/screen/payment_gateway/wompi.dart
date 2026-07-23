@@ -21,7 +21,7 @@ class _WompiCheckoutPageState extends ConsumerState<WompiCheckoutPage> {
       '&amount-in-cents=[amount]'
       '&reference=[reference]'
       '&signature:integrity=[signature]'
-      '&redirect-url=https://subdivinely-unreciprocal-hee.ngrok-free.dev/api/sandbox.tankio/v1/payment-gateway/webhook/wompi/validation/response';
+      '&redirect-url= https://grateful-november-specialty-stand.trycloudflare.com/api/sandbox.tankio/v1/payment-gateway/webhook/wompi/validation/response';
 
   @override
   void initState() {

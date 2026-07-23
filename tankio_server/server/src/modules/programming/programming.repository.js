@@ -5,12 +5,32 @@ const { createHttpError } = require("../../common/http-error");
 exports.createprogramming = async (data) => {
 
   const validPending = await validPendingProgramming(data);
+
   if(validPending){
-      const error = new Error('Programming already exists');
-      error.statusCode = 409;
-      error.code = '';
-      throw error;
+
+    if(validPending.programming_status_id == 0 || validPending.programming_status_id == 1){
+        const error = new Error('You currently have a registered schedule that is incomplete.');
+        error.statusCode = 409;
+        error.code = '';
+        throw error;
+    }
+
+    if(validPending.programming_status_id == 2){
+        const error = new Error('You have a schedule ready to start connect your vehicle.');
+        error.statusCode = 409;
+        error.code = '';
+        throw error;
+    }
+
+    if(validPending.programming_status_id == 3){
+        const error = new Error('You are currently charging your vehicle.');
+        error.statusCode = 409;
+        error.code = '';
+        throw error;
+    }
   }
+
+
 
   const programming = await createProgramming(data);
 
@@ -114,7 +134,7 @@ async function programmingbyuserid(id){
 
 async function validPendingProgramming(data) {
 
-  const query = `SELECT id FROM public.programming
+  const query = `SELECT * FROM public.programming
                   WHERE station_id = $1 AND user_id = $2 AND controller_id = $3 AND position_id = $4  AND programming_status_id IN (0,1,2,3) LIMIT 1;`;
   const result = await pool.query(query,[data.stationid,data.userid,
     data.controllerid,data.positionid]);

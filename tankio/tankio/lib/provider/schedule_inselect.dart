@@ -8,6 +8,8 @@ import 'package:tankio/models/programming_model.dart';
 import 'package:tankio/provider/loading.dart';
 import 'package:tankio/provider/user.dart';
 import 'package:tankio/services/inselect_service.dart';
+import 'package:tankio/utils/enum.dart';
+import 'package:tankio/widget/modal/status_modal.dart';
 
 class ScheduleInselectProvider extends ChangeNotifier {
   final Ref ref;
@@ -26,6 +28,7 @@ class ScheduleInselectProvider extends ChangeNotifier {
   String powerCalculate = "0";
   ProgrammingResponseModel? programming;
   bool isValidBalanceGroup = true;
+  BuildContext? context = navigatorKey.currentContext;
 
   // Datos de la carga
 
@@ -40,8 +43,6 @@ class ScheduleInselectProvider extends ChangeNotifier {
   int programmingStatusId = 0;
 
   // Datos de la carga
-
-  BuildContext? context = navigatorKey.currentContext;
 
   List<Map<String, dynamic>> speedDialButtons = [
     {"id": 1, "moneyLabel": "\$ 10k", "moneyValue": "10000"},
@@ -218,6 +219,14 @@ class ScheduleInselectProvider extends ChangeNotifier {
       if (response.statusCode == 201) {
         programming = ProgrammingResponseModel.fromJson(response.data['data']);
         return true;
+      }
+      if (response.statusCode == 409) {
+        AppStatusModal.show(
+          context: context!,
+          type: AppModalType.error,
+          title: "Error",
+          message: response.data['message'],
+        );
       }
     } catch (e) {
       debugPrint(e.toString());

@@ -207,7 +207,7 @@ exports.disableItemRecovery = async (item) =>{
 
 exports.getListReleaseProgramming = async()=>{
   const query = `SELECT * FROM public.programming WHERE programming_status_id IN (0,1,6)
-  AND (registration_date < NOW() - INTERVAL '2 minutes')`;
+  AND (registration_date < NOW() - INTERVAL '3 minutes')`;
   const result = await pool.query(query,);
   return result.rowCount>0 ?result.rows : [];
 }

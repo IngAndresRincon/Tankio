@@ -518,14 +518,15 @@ class _InselectScheduleState extends ConsumerState<InselectSchedule> {
                                   title: l10n.scheduleConfirmationTitle,
                                   message: l10n.scheduleConfirmationMessage,
                                 );
-                              } else {
-                                AppStatusModal.show(
-                                  context: context,
-                                  type: AppModalType.error,
-                                  title: l10n.scheduleErrorTitle,
-                                  message: l10n.scheduleErrorMessage,
-                                );
                               }
+                              // else {
+                              //   AppStatusModal.show(
+                              //     context: context,
+                              //     type: AppModalType.error,
+                              //     title: l10n.scheduleErrorTitle,
+                              //     message: l10n.scheduleErrorMessage,
+                              //   );
+                              // }
                             });
                           },
                     style: ElevatedButton.styleFrom(

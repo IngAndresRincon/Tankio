@@ -16,7 +16,7 @@ exports.getsalebyuser = async (id) => {
 exports.getinvoicebysale = async (saleid) =>{
   const invoice =  await saleRepository.getinvoicebysale(saleid);
   if(invoice){
-    invoice.qr =`${env.fe.dian_url_qa}?documentkey=${invoice.response_invoice_payload.cufe}`;
+    invoice.qr =`${env.fe.dian_url_qa}?documentkey=${invoice.response_invoice_payload?.cufe??""}`;
   }
 
   return invoice;

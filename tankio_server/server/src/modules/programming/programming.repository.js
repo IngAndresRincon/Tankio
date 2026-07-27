@@ -9,21 +9,25 @@ exports.createprogramming = async (data) => {
   if(validPending){
 
     if(validPending.programming_status_id == 0 || validPending.programming_status_id == 1){
-        const error = new Error('You currently have a registered schedule that is incomplete.');
+        //const error = new Error('You currently have a registered schedule that is incomplete.');
+        const error = new Error('Actualmente tienes una programación de carga incompleta.');
         error.statusCode = 409;
         error.code = '';
         throw error;
     }
 
     if(validPending.programming_status_id == 2){
-        const error = new Error('You have a schedule ready to start connect your vehicle.');
+        //const error = new Error('You have a schedule ready to start connect your vehicle.');
+        const error = new Error('Tienes una programación lista para comenzar, conecta tu vehículo.');
+
         error.statusCode = 409;
         error.code = '';
         throw error;
     }
 
     if(validPending.programming_status_id == 3){
-        const error = new Error('You are currently charging your vehicle.');
+        //const error = new Error('You are currently charging your vehicle.');
+        const error = new Error('Tu vehículo actualmente está en proceso de carga.');
         error.statusCode = 409;
         error.code = '';
         throw error;

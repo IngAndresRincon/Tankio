@@ -14,6 +14,10 @@ async function startConsole() {
   syncGenerateRequestInvoiceRecord();
   syncGeneratePayloadInvoice();
   syncRequestInvoice();
+  ///////////////////////////////////
+  syncResendingProgramming();
+  //////////////////////////////////
+  syncValidateChargerStatus();
 }
 
 //#region
@@ -142,6 +146,31 @@ async function syncRequestInvoice(){
     await new Promise((resolve) => setTimeout(resolve, 10000)); // Esperar 1 minuto
   }
 }
+
+
+async function syncResendingProgramming(){
+  while (true) {
+    try {
+      await consoleService.syncResendingProgramming();
+    } catch (error) {
+      console.error(error);
+    }
+    await new Promise((resolve) => setTimeout(resolve, 20000)); // Esperar 10 segundos
+  }
+}
+
+
+async function syncValidateChargerStatus(){
+    while (true) {
+    try {
+      await consoleService.syncValidateChargerStatus();
+    } catch (error) {
+      console.error(error);
+    }
+    await new Promise((resolve) => setTimeout(resolve, 20000)); // Esperar 10 segundos
+  }
+}
+
 
 //#endregion
 startConsole();

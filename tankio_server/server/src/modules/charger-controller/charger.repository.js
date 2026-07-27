@@ -89,14 +89,48 @@ exports.findDispenserByControllerId = async (controllerid) => {
 }
 
 
-exports.updatestatus = async (id,params) => {
+exports.findProgrammingIdByPosition = async ({id}) =>{
+  const query = `SELECT id FROM public.programming 
+  WHERE position_id = $1 AND programming_status_id = $2 LIMIT 1; `;
+  const result = await pool.query(query,[id,3]);
+  return result.rowCount>0?result.rows[0].id : null;
+}
+
+
+exports.telemetry = async ({id,params,programmingId}) =>{
+  
+  const query = `INSERT INTO public.telemetry (
+                  position_id,
+                  hose_in_use,
+                  status,
+                  current,
+                  voltage,
+                  power,
+                  programming_id
+                  )
+                VALUES ($1,$2,$3,$4,$5,$6,$7) RETURNING *;`;
+  const result = await pool.query(query,[
+    id,
+    params.hose_in_use,
+    params.status,
+    params.current,
+    params.voltage,
+    params.power,
+    programmingId
+  ]);
+
+  return result.rowCount>0? true:false;
+}
+
+exports.updatestatusconnector = async (id,params) => {
   const query = `UPDATE public.position 
   SET current=$1, 
   voltage = $2,
   power = $3, 
   percentage = $4, 
   hose_in_use = $5,
-  status = $6
+  status = $6,
+  updated_at = now()
   WHERE id = $7 RETURNING *;`;
   const values = [params.current, params.voltage,
   params.power,params.percentage,params.hose_in_use,params.status,id];

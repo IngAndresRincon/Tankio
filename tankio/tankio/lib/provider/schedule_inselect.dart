@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:tankio/l10n/app_localizations.dart';
 import 'package:tankio/main.dart';
 import 'package:tankio/models/dispenser_position_model.dart';
 import 'package:tankio/models/programming_model.dart';
@@ -68,6 +69,17 @@ class ScheduleInselectProvider extends ChangeNotifier {
             if (e['status'].toString().toLowerCase() == "cargando" &&
                 (e['hose_in_use'] == e['hose_number'])) {
               continue;
+            }
+            if (e['status'].toString().toLowerCase() == "desconectado") {
+              final l10n = AppLocalizations.of(context!);
+              AppStatusModal.show(
+                context: context!,
+                type: AppModalType.error,
+                dismissible: false,
+                primaryText: l10n!.ok,
+                title: l10n.electricChargerUnavailableTitle,
+                message: l10n.electricChargerUnavailableMessage,
+              ).then((value) => Navigator.pop(context!));
             }
             listDispenserPosition.add(DispenserPositionModel.fromJson(e));
           }
@@ -221,10 +233,11 @@ class ScheduleInselectProvider extends ChangeNotifier {
         return true;
       }
       if (response.statusCode == 409) {
+        final l10n = AppLocalizations.of(context!);
         AppStatusModal.show(
           context: context!,
           type: AppModalType.error,
-          title: "Error",
+          title: l10n!.errorTitle,
           message: response.data['message'],
         );
       }

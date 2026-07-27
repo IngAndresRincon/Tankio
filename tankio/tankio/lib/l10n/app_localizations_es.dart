@@ -537,7 +537,7 @@ class AppLocalizationsEs extends AppLocalizations {
   String get activityStopped => 'Detenido';
 
   @override
-  String get activityAuthorizePayment => 'Autoriza tu pago';
+  String get activityNoCommunication => 'Sin comunicación';
 
   @override
   String get activityPaymentInProgress => 'Pago en proceso';
@@ -955,6 +955,16 @@ class AppLocalizationsEs extends AppLocalizations {
   @override
   String get scheduleErrorMessage =>
       'No fue posible crear la programación para la carga de tu vehículo eléctrico.';
+
+  @override
+  String get electricChargerUnavailableTitle => 'Cargador eléctrico';
+
+  @override
+  String get electricChargerUnavailableMessage =>
+      'Actualmente el cargador eléctrico no se encuentra disponible, por favor intenta más tarde.';
+
+  @override
+  String get errorTitle => 'Error';
 
   @override
   String get qrDoesNotBelongTitle => 'El QR no pertenece al saldo disponible';

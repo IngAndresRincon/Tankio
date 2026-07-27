@@ -29,6 +29,9 @@ exports.findControllerCharger = async (params) =>{
 
 
 exports.updatestatus = async (id,params) =>{
-  return chargerRepository.updatestatus(id,params);
-  
+
+  const programmingId = await chargerRepository.findProgrammingIdByPosition({id});
+  if(programmingId) await chargerRepository.telemetry({id,params,programmingId});
+
+  return chargerRepository.updatestatusconnector(id,params);  
 }

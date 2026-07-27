@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:tankio/l10n/app_localizations.dart';
 import 'package:tankio/provider/user.dart';
 import 'package:tankio/widget/modal/programming_detail.dart';
@@ -90,7 +91,7 @@ class _ActivityState extends ConsumerState<Activity> {
         );
       case 9:
         return (
-          l10n.activityAuthorizePayment,
+          l10n.activityNoCommunication,
           const Color(0xFF7C3AED),
           Icons.payment_rounded,
         );
@@ -210,121 +211,130 @@ class _ActivityState extends ConsumerState<Activity> {
           ),
 
           Flexible(
-            child: ListView.builder(
-              itemCount: user.programminglistfilter.length,
-              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+            child: LiquidPullToRefresh(
+              onRefresh: () async {
+                await ref.read(userProvider).getProgrammingActivityByUser();
+              },
+              backgroundColor: Colors.black12,
+              height: size.height * 0.1,
+              color: Colors.transparent,
+              showChildOpacityTransition: true,
+              child: ListView.builder(
+                itemCount: user.programminglistfilter.length,
+                padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
 
-              itemBuilder: (context, index) {
-                final item = user.programminglistfilter[index];
-                final status = _statusData(l10n, item.programmingStatusId);
-                return InkWell(
-                  onTap: () {
-                    showModalBottomSheet(
-                      context: context,
-                      isScrollControlled: true,
-                      backgroundColor: Colors.transparent,
-                      builder: (_) {
-                        return ProgrammingDetailModal(programming: item);
-                      },
-                    );
-                  },
-                  child: Container(
-                    padding: EdgeInsets.symmetric(vertical: 5),
-                    margin: EdgeInsets.symmetric(vertical: 10),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Flexible(
-                          child: CircleAvatar(
-                            backgroundColor: const Color(0xFFF6F6F6),
-                            radius: size.width * 0.07,
-                            child: Icon(
-                              item.systemId == 1
-                                  ? Icons.local_gas_station
-                                  : Icons.ev_station,
-                              color: Colors.black,
-                              size: size.width * 0.07,
+                itemBuilder: (context, index) {
+                  final item = user.programminglistfilter[index];
+                  final status = _statusData(l10n, item.programmingStatusId);
+                  return InkWell(
+                    onTap: () {
+                      showModalBottomSheet(
+                        context: context,
+                        isScrollControlled: true,
+                        backgroundColor: Colors.transparent,
+                        builder: (_) {
+                          return ProgrammingDetailModal(programming: item);
+                        },
+                      );
+                    },
+                    child: Container(
+                      padding: EdgeInsets.symmetric(vertical: 5),
+                      margin: EdgeInsets.symmetric(vertical: 10),
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Flexible(
+                            child: CircleAvatar(
+                              backgroundColor: const Color(0xFFF6F6F6),
+                              radius: size.width * 0.07,
+                              child: Icon(
+                                item.systemId == 1
+                                    ? Icons.local_gas_station
+                                    : Icons.ev_station,
+                                color: Colors.black,
+                                size: size.width * 0.07,
+                              ),
                             ),
                           ),
-                        ),
-                        Flexible(
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            mainAxisAlignment: MainAxisAlignment.center,
+                          Flexible(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Text(
+                                  item.stationName,
+                                  style: TextStyle(
+                                    fontFamily: 'Nunito',
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.black,
+                                    fontSize: size.width * 0.036,
+                                  ),
+                                ),
+                                Text(
+                                  "${item.vehicleBrand} ${item.vehicleModel}",
+                                  style: TextStyle(
+                                    fontFamily: 'Nunito',
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xFF535862),
+                                    fontSize: size.width * 0.03,
+                                  ),
+                                ),
+                                Text(
+                                  item.registrationDate,
+                                  style: TextStyle(
+                                    fontFamily: 'Nunito',
+                                    fontWeight: FontWeight.w400,
+                                    color: const Color(0xFF535862),
+                                    fontSize: size.width * 0.03,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             mainAxisSize: MainAxisSize.max,
                             children: [
+                              Container(
+                                padding: EdgeInsets.symmetric(
+                                  vertical: 2,
+                                  horizontal: 10,
+                                ),
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(60),
+                                  color: status.$2.withValues(alpha: 0.6),
+                                ),
+                                child: Text(
+                                  status.$1,
+                                  style: TextStyle(
+                                    fontFamily: 'Nunito',
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white,
+                                    fontSize: size.width * 0.036,
+                                  ),
+                                ),
+                              ),
                               Text(
-                                item.stationName,
+                                "\$ ${_formatMoney(item.programmingMoney)}",
                                 style: TextStyle(
                                   fontFamily: 'Nunito',
-                                  fontWeight: FontWeight.w600,
+                                  fontWeight: FontWeight.w800,
                                   color: Colors.black,
-                                  fontSize: size.width * 0.036,
-                                ),
-                              ),
-                              Text(
-                                "${item.vehicleBrand} ${item.vehicleModel}",
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xFF535862),
-                                  fontSize: size.width * 0.03,
-                                ),
-                              ),
-                              Text(
-                                item.registrationDate,
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontWeight: FontWeight.w400,
-                                  color: const Color(0xFF535862),
-                                  fontSize: size.width * 0.03,
+                                  fontSize: size.width * 0.041,
                                 ),
                               ),
                             ],
                           ),
-                        ),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Container(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 2,
-                                horizontal: 10,
-                              ),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(60),
-                                color: status.$2.withValues(alpha: 0.6),
-                              ),
-                              child: Text(
-                                status.$1,
-                                style: TextStyle(
-                                  fontFamily: 'Nunito',
-                                  fontWeight: FontWeight.w600,
-                                  color: Colors.white,
-                                  fontSize: size.width * 0.036,
-                                ),
-                              ),
-                            ),
-                            Text(
-                              "\$ ${_formatMoney(item.programmingMoney)}",
-                              style: TextStyle(
-                                fontFamily: 'Nunito',
-                                fontWeight: FontWeight.w800,
-                                color: Colors.black,
-                                fontSize: size.width * 0.041,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                );
-              },
+                  );
+                },
+              ),
             ),
           ),
         ],

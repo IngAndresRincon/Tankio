@@ -148,3 +148,36 @@ exports.syncNotifyEmailConfirmation = async () => {
   }
 }
 
+
+
+exports.syncResendingProgramming = async () =>{
+  try {
+    const todoList = await repositoryConsole.getListResendingProgramming({statusId:1});
+    if(todoList.length>0){
+       for(let i = 0; i<todoList.length;i++){
+        await repositoryConsole.setStatusRegistered({id:todoList[i].id});
+        await new Promise((resolve) => setTimeout(resolve, 5000)); // Esperar 5 segundos
+        await repositoryConsole.setStatusConfirmed({id:todoList[i].id});
+       }
+    }
+  } catch (e) {
+    console.error(e.message);
+  }
+}
+
+
+
+exports.syncValidateChargerStatus = async()=>{
+   try {
+    const todoList = await repositoryConsole.checkListDisconnectedPositionStatus();
+    if(todoList.length>0){
+       for(let i = 0; i<todoList.length;i++){
+        await repositoryConsole.lockElectricChargerPosition(todoList[i]);
+        await repositoryConsole.blockProgramming(todoList[i]);
+        await repositoryConsole.createDisconnectionNotification(todoList[i]);
+       }
+    }
+  } catch (e) {
+    console.error(e.message);
+  }
+}

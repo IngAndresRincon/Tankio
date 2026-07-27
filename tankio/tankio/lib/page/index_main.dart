@@ -201,7 +201,7 @@ class _MainPageState extends ConsumerState<MainPage> {
                       child: Align(
                         alignment: AlignmentGeometry.topLeft,
                         child: ElevatedButton(
-                          onPressed: () {},
+                          onPressed: () async {},
                           style: ElevatedButton.styleFrom(
                             backgroundColor: Colors.white,
                             padding: const EdgeInsets.symmetric(
@@ -319,8 +319,10 @@ class _MainPageState extends ConsumerState<MainPage> {
                           width: size.width * 0.3,
 
                           child: ElevatedButton(
-                            onPressed: () {
+                            onPressed: () async {
                               // Aquí iría la lógica de autenticación biométrica
+                              await balance.updateInformationBalance();
+
                               if (context.mounted) {
                                 Navigator.pushNamed(
                                   context,
@@ -649,6 +651,18 @@ class _MainPageState extends ConsumerState<MainPage> {
                                       child: Text(
                                         item.status.toUpperCase() == "SUPPLYING"
                                             ? "DESPACHANDO"
+                                            : item.status.toUpperCase() ==
+                                                  "INCOMPLETE"
+                                            ? "INCOMPLETO"
+                                            : item.status.toUpperCase() ==
+                                                  "CANCELED"
+                                            ? "CANCELADO"
+                                            : item.status.toUpperCase() ==
+                                                  "REJECTED"
+                                            ? "RECHAZADO"
+                                            : item.status.toUpperCase() ==
+                                                  "RECEIVED"
+                                            ? "CONFIRMADO"
                                             : item.status.toUpperCase(),
                                         style: TextStyle(
                                           fontFamily: 'Nunito',

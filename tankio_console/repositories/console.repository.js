@@ -276,3 +276,88 @@ exports.confirmSendingEmailUser = async (user)=>{
   const result = await pool.query(query,[true ,user.id]);
   return result.rowCount>0 ? true :false;
 }
+
+
+
+
+exports.getListResendingProgramming =async ({statusId}) =>{
+    const query = `SELECT * FROM public.programming 
+    WHERE programming_status_id = $1 
+    AND (registration_date < NOW() - INTERVAL '15 seconds')
+    AND number_of_resends < $2;`;
+    const result = await pool.query(query,[statusId,3]);
+    return result.rowCount>0? result.rows : [];
+
+}
+
+
+exports.setStatusRegistered = async ({id})=>{
+    const query = `UPDATE public.programming SET programming_status_id = $1 
+    WHERE id = $2 AND programming_status_id =$3 RETURNING *;`;
+    const result = await pool.query(query,[0,id,1]);
+    return result.rowCount>0? true:false;
+}
+
+exports.setStatusConfirmed = async ({id})=>{
+    const query = `UPDATE public.programming SET 
+    programming_status_id = $1,
+    number_of_resends = number_of_resends +1
+    WHERE id = $2 AND programming_status_id =$3 RETURNING *;`;
+    const result = await pool.query(query,[1,id,0]);
+    return result.rowCount>0? true:false;
+}
+
+
+
+exports.checkListDisconnectedPositionStatus = async ()=>{
+    const query = `SELECT * FROM public.position 
+    WHERE ( (COALESCE(updated_at,now()) < NOW() - INTERVAL '30 seconds') AND UPPER(status) = $1) 
+    OR ((COALESCE(updated_at,now()) < NOW() - INTERVAL '90 seconds') AND UPPER(status) = $2) 
+    OR ((COALESCE(updated_at,now()) < NOW() - INTERVAL '90 seconds') AND UPPER(status) = $3);`;
+    const result = await pool.query(query,['SURTIENDO','DISPONIBLE','CARGANDO']);
+    return result.rowCount>0? result.rows : [];
+}
+
+
+exports.lockElectricChargerPosition = async (position)=>{
+    const query  = `UPDATE public.position SET 
+                    status = $1,
+                    registration_date = now()
+                    WHERE id =$2;`;
+    const result = await pool.query(query,['DESCONECTADO',position.id]);
+    return result.rowCount>0? true:false;
+}
+
+exports.blockProgramming = async (position) =>{
+  const query = `UPDATE  public.programming SET 
+  programming_status_id = $1 
+  WHERE position_id = $2 AND programming_status_id = $3 RETURNING *;`;
+  const result = await pool.query(query,[9,position.id,3]);
+  return result.rowCount>0?true:false;
+}
+
+
+
+exports.createDisconnectionNotification = async(position) =>{
+  // Query0 obtiene la programación activa o en despacho de la posición desconectada
+  const query0 = `SELECT * FROM public.programming 
+  WHERE position_id = $1 AND programming_status_id = $2 LIMIT 1;`;
+  const result0 = await pool.query(query0,[position.id,3]);
+
+  if(result0.rowCount>0){
+    const query1 = `INSERT INTO public.notification 
+    (user_id,station_id,title,description,type,notification_time)
+    VALUES ($1,$2,$3,$4,$5,$6) RETURNING *;`;
+    const result1 = await pool.query(query1,[
+      result0.rows[0].user_id,
+      result0.rows[0].station_id,
+      'Error de comunicación',
+      'Hola, estamos presentando problemas de conexión con nuestro cargador eléctrico, al restablecer la comunicación, haremos efectiva tu compra. Gracias por tu espera.',
+      1,
+      5
+    ]);
+    return result1.rowCount>0? true:false;
+  }
+
+  return false;
+}

@@ -1088,11 +1088,11 @@ abstract class AppLocalizations {
   /// **'Stopped'**
   String get activityStopped;
 
-  /// No description provided for @activityAuthorizePayment.
+  /// No description provided for @activityNoCommunication.
   ///
   /// In en, this message translates to:
-  /// **'Authorize your payment'**
-  String get activityAuthorizePayment;
+  /// **'No communication'**
+  String get activityNoCommunication;
 
   /// No description provided for @activityPaymentInProgress.
   ///
@@ -1891,6 +1891,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'We were unable to create the schedule for your electric vehicle charging.'**
   String get scheduleErrorMessage;
+
+  /// No description provided for @electricChargerUnavailableTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Electric charger'**
+  String get electricChargerUnavailableTitle;
+
+  /// No description provided for @electricChargerUnavailableMessage.
+  ///
+  /// In en, this message translates to:
+  /// **'The electric charger is currently unavailable, please try again later.'**
+  String get electricChargerUnavailableMessage;
+
+  /// No description provided for @errorTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Error'**
+  String get errorTitle;
 
   /// No description provided for @qrDoesNotBelongTitle.
   ///

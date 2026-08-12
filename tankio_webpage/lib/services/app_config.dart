@@ -1,17 +1,45 @@
+import 'package:flutter/foundation.dart';
+
 class AppConfig {
   const AppConfig._();
 
-  static const String baseUrl = String.fromEnvironment(
-    'INSEPET_BASE_URL',
-    //defaultValue: 'https://subdivinely-unreciprocal-hee.ngrok-free.dev',
-    defaultValue: 'http://localhost:40412',
-  );
+  static String get baseUrl {
+    const env = String.fromEnvironment('INSEPET_BASE_URL');
+    if (env.isNotEmpty) {
+      return env;
+    }
 
-  static const String socketUrl = String.fromEnvironment(
-    'INSEPET_SOCKET_URL',
-    defaultValue: 'http://localhost:40412',
-    //defaultValue: 'https://subdivinely-unreciprocal-hee.ngrok-free.dev',
-  );
+    if (kIsWeb) {
+      if (Uri.base.host.isNotEmpty) {
+        return Uri(
+          scheme: Uri.base.scheme,
+          host: Uri.base.host,
+          port: 40412,
+        ).toString();
+      }
+    }
+
+    return 'http://localhost:40412';
+  }
+
+  static String get socketUrl {
+    const env = String.fromEnvironment('INSEPET_SOCKET_URL');
+    if (env.isNotEmpty) {
+      return env;
+    }
+
+    if (kIsWeb) {
+      if (Uri.base.host.isNotEmpty) {
+        return Uri(
+          scheme: Uri.base.scheme,
+          host: Uri.base.host,
+          port: 40412,
+        ).toString();
+      }
+    }
+
+    return 'http://localhost:40412';
+  }
 
   static const String apiKey = String.fromEnvironment(
     'TANKIO_API_KEY',

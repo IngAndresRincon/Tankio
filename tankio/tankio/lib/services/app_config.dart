@@ -3,15 +3,15 @@ class AppConfig {
 
   static const String baseUrl = String.fromEnvironment(
     'INSEPET_BASE_URL',
-    // defaultValue: 'https://subdivinely-unreciprocal-hee.ngrok-free.dev',
-    defaultValue: 'https://rhode-pink-span-laws.trycloudflare.com',
+    defaultValue: 'https://subdivinely-unreciprocal-hee.ngrok-free.dev',
+    //defaultValue: 'https://rhode-pink-span-laws.trycloudflare.com',
     //defaultValue: 'http://18.204.225.239:3001',
   );
 
   static const String socketUrl = String.fromEnvironment(
     'INSEPET_SOCKET_URL',
-    // defaultValue: 'https://subdivinely-unreciprocal-hee.ngrok-free.dev',
-    defaultValue: 'https://rhode-pink-span-laws.trycloudflare.com',
+    defaultValue: 'https://subdivinely-unreciprocal-hee.ngrok-free.dev',
+    //defaultValue: 'https://rhode-pink-span-laws.trycloudflare.com',
     //defaultValue: 'http://192.168.120.149:3000',
   );
 

@@ -8,7 +8,4 @@ class InvoiceAuthentication{
         this.terminalId = terminalId;
     }
 }
-
-
-
 module.exports = {InvoiceAuthentication}

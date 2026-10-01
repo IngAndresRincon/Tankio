@@ -4,14 +4,14 @@ class AppConfig {
   static const String baseUrl = String.fromEnvironment(
     'INSEPET_BASE_URL',
     //defaultValue: 'https://subdivinely-unreciprocal-hee.ngrok-free.dev',
-    //defaultValue: 'https://rhode-pink-span-laws.trycloudflare.com',
+    //defaultValue: 'http://192.168.120.143:40411',
     defaultValue: 'http://tankio.insepet.com:3003',
   );
 
   static const String socketUrl = String.fromEnvironment(
     'INSEPET_SOCKET_URL',
     //defaultValue: 'https://subdivinely-unreciprocal-hee.ngrok-free.dev',
-    //defaultValue: 'https://rhode-pink-span-laws.trycloudflare.com',
+    //defaultValue: 'http://192.168.120.143:40411',
     defaultValue: 'http://tankio.insepet.com:3003',
   );
 

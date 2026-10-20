@@ -1,0 +1,30 @@
+{
+  "name": "server",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "node test/run-tests.js",
+    "key": "node scripts/create-api-key.js",
+    "seed:dispenser": "node scripts/seed-dispenser-data.js",
+    "seed:position": "node scripts/seed-position-data.js",
+    "seed:hose": "node scripts/seed-hose-data.js",
+    "seed:product-price": "node scripts/seed-product-price-data.js",
+    "seed:vehicle-connector-hose": "node scripts/seed-vehicle-connector-hose-data.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "dependencies": {
+    "axios": "^1.16.0",
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "helmet": "^8.1.0",
+    "pg": "^8.20.0",
+    "socket.io": "^4.8.3",
+    "socket.io-client": "^4.8.3",
+    "uuid": "^14.0.0"
+  }
+}

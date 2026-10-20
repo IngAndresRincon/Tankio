@@ -138,9 +138,11 @@ function generateMessageSMS(sale){
 exports.syncNotifyEmailConfirmation = async () => {
   const list = await repositoryConsole.getListNotifyEmail(); 
   if (list.length > 0) {
+    console.log(`1. Lista de corres por notificar ${JSON.stringify(list)}`);
     const itemUser = list[0];
     //const normalizeEmail = encrypter(itemUser.email);
     const url = `${env.url_confirm_email_user}${itemUser.id}?email=${encrypter(itemUser.email)}`;
+    console.log(`2. Url: ${url}`);
     const isSentEmail = await email.emailNotificationConfirmUserEmail(itemUser.email,url);
     if(isSentEmail){
         await repositoryConsole.confirmSendingEmailUser(itemUser);

@@ -2,8 +2,8 @@ import 'package:aplicacion/provider/page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-class Step2Page extends ConsumerWidget {
-  const Step2Page({super.key});
+class PaymentPage extends ConsumerWidget {
+  const PaymentPage({super.key});
 
   static const Color primaryText = Color(0xFF102B3F);
   static const Color secondaryText = Color(0xFF64748B);
@@ -24,6 +24,7 @@ class Step2Page extends ConsumerWidget {
       (match) => '.',
     );
     return ListView(
+      padding: const EdgeInsets.symmetric(horizontal: 40),
       children: [
         Container(
           height: (size.height * 0.27).clamp(200.0, 260.0).toDouble(),
@@ -46,7 +47,7 @@ class Step2Page extends ConsumerWidget {
                 top: 0,
                 right: 0,
                 bottom: 0,
-                width: size.width * 0.68,
+                width: size.width * 0.6,
                 child: ShaderMask(
                   blendMode: BlendMode.dstIn,
                   shaderCallback: (bounds) {
@@ -66,6 +67,7 @@ class Step2Page extends ConsumerWidget {
                     'assets/ev_vehicle.png',
                     fit: BoxFit.contain,
                     alignment: Alignment.centerRight,
+                    width: size.width * 0.15,
                   ),
                 ),
               ),
@@ -74,7 +76,7 @@ class Step2Page extends ConsumerWidget {
                 child: Align(
                   alignment: Alignment.centerLeft,
                   child: FractionallySizedBox(
-                    widthFactor: compactLayout ? 0.60 : 0.56,
+                    widthFactor: 0.8,
                     child: Column(
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -93,7 +95,7 @@ class Step2Page extends ConsumerWidget {
                         ),
                         const SizedBox(height: 10),
                         Text(
-                          'Verifica los datos antes de continuar.',
+                          'Verifica los datos \nantes de continuar.',
                           style: TextStyle(
                             color: Color(0xFF64748B),
                             fontFamily: 'Nunito',
@@ -111,10 +113,9 @@ class Step2Page extends ConsumerWidget {
             ],
           ),
         ),
-        const SizedBox(height: 18),
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(16),
+          padding: const EdgeInsets.symmetric(horizontal: 25, vertical: 10),
           decoration: BoxDecoration(
             color: cardColor,
             borderRadius: BorderRadius.circular(20),
@@ -134,11 +135,11 @@ class Step2Page extends ConsumerWidget {
                 children: [
                   CircleAvatar(
                     backgroundColor: accent.withValues(alpha: 0.16),
-                    radius: size.width * 0.05,
+                    radius: size.width * 0.04,
                     child: Icon(
                       Icons.bolt,
                       color: accent,
-                      size: size.width * 0.08,
+                      size: size.width * 0.06,
                     ),
                   ),
 
@@ -149,7 +150,7 @@ class Step2Page extends ConsumerWidget {
                       style: TextStyle(
                         color: primaryText,
                         fontFamily: 'Nunito',
-                        fontSize: size.width * 0.035,
+                        fontSize: size.width * 0.03,
                         fontWeight: FontWeight.w800,
                       ),
                     ),
@@ -185,10 +186,13 @@ class Step2Page extends ConsumerWidget {
                   ),
                 ],
               ),
-              const SizedBox(height: 14),
+              const SizedBox(height: 8),
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(13),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFF8FCF9),
                   borderRadius: BorderRadius.circular(15),
@@ -198,11 +202,11 @@ class Step2Page extends ConsumerWidget {
                   children: [
                     CircleAvatar(
                       backgroundColor: accent.withValues(alpha: 0.15),
-                      radius: size.width * 0.05,
+                      radius: size.width * 0.03,
                       child: Icon(
                         Icons.attach_money,
                         color: accent,
-                        size: size.width * 0.07,
+                        size: size.width * 0.05,
                       ),
                     ),
                     const SizedBox(width: 15),
@@ -227,16 +231,16 @@ class Step2Page extends ConsumerWidget {
                                 style: TextStyle(
                                   color: primaryText,
                                   fontFamily: 'Nunito',
-                                  fontSize: compactLayout ? 23 : 27,
+                                  fontSize: size.width * 0.025,
                                   fontWeight: FontWeight.w900,
                                 ),
                               ),
-                              const Text(
+                              Text(
                                 'COP',
                                 style: TextStyle(
                                   color: secondaryText,
                                   fontFamily: 'Nunito',
-                                  fontSize: 13,
+                                  fontSize: size.width * 0.025,
                                 ),
                               ),
                             ],
@@ -260,10 +264,13 @@ class Step2Page extends ConsumerWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 9),
+              const SizedBox(height: 5),
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(13),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFF8FCF9),
                   borderRadius: BorderRadius.circular(15),
@@ -273,11 +280,11 @@ class Step2Page extends ConsumerWidget {
                   children: [
                     CircleAvatar(
                       backgroundColor: Color(0x223B9CFF),
-                      radius: size.width * 0.05,
+                      radius: size.width * 0.03,
                       child: Icon(
                         Icons.bar_chart_rounded,
                         color: Color(0xFF75B9FF),
-                        size: size.width * 0.07,
+                        size: size.width * 0.05,
                       ),
                     ),
 
@@ -300,7 +307,7 @@ class Step2Page extends ConsumerWidget {
                             style: TextStyle(
                               color: primaryText,
                               fontFamily: 'Nunito',
-                              fontSize: 20,
+                              fontSize: size.width * 0.025,
                               fontWeight: FontWeight.w800,
                             ),
                           ),
@@ -323,10 +330,13 @@ class Step2Page extends ConsumerWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 9),
+              const SizedBox(height: 5),
               Container(
                 width: double.infinity,
-                padding: const EdgeInsets.all(13),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 10,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: const Color(0xFFF8FCF9),
                   borderRadius: BorderRadius.circular(15),
@@ -336,11 +346,11 @@ class Step2Page extends ConsumerWidget {
                   children: [
                     CircleAvatar(
                       backgroundColor: accent.withValues(alpha: 0.15),
-                      radius: size.width * 0.05,
+                      radius: size.width * 0.03,
                       child: Icon(
                         Icons.electric_bolt,
                         color: accent,
-                        size: size.width * 0.07,
+                        size: size.width * 0.05,
                       ),
                     ),
                     const SizedBox(width: 15),
@@ -362,7 +372,7 @@ class Step2Page extends ConsumerWidget {
                             style: TextStyle(
                               color: primaryText,
                               fontFamily: 'Nunito',
-                              fontSize: 16,
+                              fontSize: size.width * 0.025,
                               fontWeight: FontWeight.w800,
                             ),
                           ),
@@ -385,7 +395,7 @@ class Step2Page extends ConsumerWidget {
                   ],
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 5),
               Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 12,
@@ -415,7 +425,7 @@ class Step2Page extends ConsumerWidget {
             ],
           ),
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 15),
         Row(
           children: [
             CircleAvatar(
@@ -428,7 +438,7 @@ class Step2Page extends ConsumerWidget {
               ),
             ),
 
-            const SizedBox(width: 10),
+            const SizedBox(width: 15),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -455,10 +465,10 @@ class Step2Page extends ConsumerWidget {
             ),
           ],
         ),
-        const SizedBox(height: 12),
+        const SizedBox(height: 10),
         Container(
           width: double.infinity,
-          padding: const EdgeInsets.all(14),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
           decoration: BoxDecoration(
             color: cardColor,
             borderRadius: BorderRadius.circular(18),
@@ -511,7 +521,7 @@ class Step2Page extends ConsumerWidget {
             ],
           ),
         ),
-        const SizedBox(height: 16),
+        const SizedBox(height: 10),
         Container(
           width: double.infinity,
           height: size.height * 0.05,
@@ -529,7 +539,6 @@ class Step2Page extends ConsumerWidget {
             },
             style: ElevatedButton.styleFrom(
               elevation: 5,
-
               backgroundColor: Color(0xFF16865A),
             ),
             child: Text(

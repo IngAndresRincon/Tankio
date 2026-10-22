@@ -24,6 +24,11 @@ class _IndexScreenState extends ConsumerState<IndexScreen> {
       backgroundColor: const Color(0xFF08141F),
       body: PageView(
         controller: page.controllerMainPageView,
+        onPageChanged: (value) {
+          setState(() {
+            page.indexMainPage = value;
+          });
+        },
         physics: const NeverScrollableScrollPhysics(),
         children: [IndexPage(), HomePage()],
       ),

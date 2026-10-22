@@ -10,6 +10,8 @@ class PageProvider extends ChangeNotifier {
   PageProvider({required this.ref, required this.size});
 
   final controllerValue = TextEditingController(text: "0");
+  int indexMainPage = 0;
+  int indexSecondaryPage = 0;
   final controllerMainPageView = PageController(initialPage: 0);
   final controllerSecondaryPageView = PageController(initialPage: 0);
 
@@ -31,6 +33,7 @@ class PageProvider extends ChangeNotifier {
           Icons.backspace_outlined,
           size: _keyIconSize,
           color: const Color(0xFF285A48),
+          fontWeight: FontWeight.w600,
         ),
       );
     }
@@ -41,6 +44,19 @@ class PageProvider extends ChangeNotifier {
     );
   });
 
+  List<dynamic> electricLoadData = [
+    {"icon": Icons.bolt, "label": "Potencia", "value": 0},
+    {"icon": Icons.electric_bolt_rounded, "label": "Corriente", "value": 0},
+    {"icon": Icons.power_rounded, "label": "Voltaje", "value": 0},
+    {"icon": Icons.local_atm_outlined, "label": "Dinero", "value": 0},
+    {"icon": Icons.access_time, "label": "TIempo", "value": 0},
+    {
+      "icon": Icons.battery_charging_full_rounded,
+      "label": "Energía",
+      "value": 0,
+    },
+  ];
+
   TextStyle get _keyTextStyle => TextStyle(
     fontFamily: 'Manrope',
     fontSize: (size.width * 0.06).clamp(22.0, 60.0).toDouble(),
@@ -48,7 +64,7 @@ class PageProvider extends ChangeNotifier {
     color: const Color(0xFF285A48),
   );
 
-  double get _keyIconSize => (size.width * 0.6).clamp(22.0, 60.0).toDouble();
+  double get _keyIconSize => (size.width * 0.6).clamp(20.0, 35.0).toDouble();
 
   Widget _keyboardButton({required int index, required Widget child}) {
     const Color buttonColor = Color(0xFFEAF5EE);

@@ -46,6 +46,11 @@ class _WebPageState extends ConsumerState<EpaycoCheckoutPage> {
       stationPayment.selectedPaymentGateway!.settings!['public_key'],
     );
 
+    file = file.replaceAll(
+      "[test]",
+      stationPayment.selectedPaymentGateway?.test.toString() ?? "true",
+    );
+
     file = file.replaceAll("[invoice]", stationPayment.createdPayment!.invoice);
     file = file.replaceAll("[amount]", stationPayment.createdPayment!.amount);
     file = file.replaceAll(

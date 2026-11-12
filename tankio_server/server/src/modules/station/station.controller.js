@@ -22,6 +22,10 @@ exports.dispenserpaymentgateway = async (req, res, next) => {
     
     const {positioncode}= req.params;
     const dispayment = await stationService.dispenserpaymentgatewaybycode(positioncode);
+    console.log("dispayment", dispayment);
+
+    console.log("payment_gateways", dispayment.at(0).payment_gateways);
+
 
     return res.status(200).json({
       message: "Dispenser payment gateways retrieved successfully",

@@ -17,7 +17,13 @@ function createApp() {
   const app = express();
 
   app.disable('x-powered-by');
-  app.use(helmet());
+  app.use(helmet({
+    contentSecurityPolicy: {
+      directives: {
+        'upgrade-insecure-requests': env.nodeEnv === 'development' ? null : [],
+      },
+    },
+  }));
   app.use(cors({
     origin: '*',
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],

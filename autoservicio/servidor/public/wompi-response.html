@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Respuesta de pago Wompi</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #eef3f8;
+      --paper: #ffffff;
+      --ink: #111827;
+      --muted: #64748b;
+      --line: #dbe3ee;
+      --soft: #f8fafc;
+      --success: #15803d;
+      --danger: #b91c1c;
+      --warning: #b45309;
+      --accent: #0f62fe;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(15, 98, 254, 0.08), transparent 26%),
+        radial-gradient(circle at top right, rgba(21, 128, 61, 0.08), transparent 24%),
+        linear-gradient(180deg, #f8fbff 0%, var(--bg) 100%);
+      color: var(--ink);
+      padding: 24px;
+    }
+
+    .page {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .ticket {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 18px;
+      box-shadow: 0 26px 70px rgba(15, 23, 42, 0.12);
+      overflow: hidden;
+    }
+
+    .head {
+      padding: 26px 28px 20px;
+      border-bottom: 1px solid var(--line);
+      background: linear-gradient(135deg, rgba(15, 98, 254, 0.05), rgba(21, 128, 61, 0.04));
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 18px;
+    }
+
+    .logo {
+      width: 60px;
+      height: 60px;
+      padding: 8px;
+      border-radius: 18px;
+      border: 1px solid var(--line);
+      background: #fff;
+      flex: 0 0 auto;
+    }
+
+    .logo img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+
+    .copy h1 {
+      margin: 0 0 4px;
+      font-size: 24px;
+      line-height: 1.15;
+    }
+
+    .copy p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .status-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 9px 13px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      border: 1px solid transparent;
+      background: #eef2ff;
+      color: #1e3a8a;
+    }
+
+    .pill.success {
+      background: rgba(21, 128, 61, 0.1);
+      color: var(--success);
+      border-color: rgba(21, 128, 61, 0.18);
+    }
+
+    .pill.danger {
+      background: rgba(185, 28, 28, 0.1);
+      color: var(--danger);
+      border-color: rgba(185, 28, 28, 0.18);
+    }
+
+    .pill.warning {
+      background: rgba(180, 83, 9, 0.1);
+      color: var(--warning);
+      border-color: rgba(180, 83, 9, 0.18);
+    }
+
+    .body {
+      padding: 24px 28px 28px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .card {
+      border: 1px solid var(--line);
+      border-radius: 14px;
+      background: var(--soft);
+      padding: 14px 16px;
+      min-height: 84px;
+    }
+
+    .label {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .value {
+      display: block;
+      font-size: 15px;
+      line-height: 1.4;
+      font-weight: 700;
+      word-break: break-word;
+    }
+
+    .value.big {
+      font-size: 20px;
+    }
+
+    .summary {
+      border-top: 1px dashed var(--line);
+      border-bottom: 1px dashed var(--line);
+      padding: 18px 0;
+      display: grid;
+      gap: 12px;
+    }
+
+    .line {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: flex-start;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .line span:first-child {
+      color: var(--muted);
+      flex: 0 0 42%;
+      max-width: 42%;
+      font-weight: 600;
+    }
+
+    .line strong {
+      text-align: right;
+      word-break: break-word;
+      flex: 1;
+      font-weight: 700;
+    }
+
+    .highlight {
+      margin-top: 18px;
+      border-radius: 16px;
+      padding: 18px;
+      background: #0f172a;
+      color: #fff;
+      display: flex;
+      justify-content: space-between;
+      gap: 18px;
+      flex-wrap: wrap;
+      align-items: flex-end;
+    }
+
+    .highlight .small {
+      color: rgba(255, 255, 255, 0.7);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .highlight .amount {
+      font-size: 28px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .banner {
+      margin-top: 16px;
+      border-radius: 14px;
+      padding: 14px 16px;
+      border: 1px solid transparent;
+      font-size: 13px;
+      line-height: 1.55;
+      font-weight: 700;
+    }
+
+    .banner.success {
+      background: rgba(21, 128, 61, 0.08);
+      border-color: rgba(21, 128, 61, 0.18);
+      color: var(--success);
+    }
+
+    .banner.danger {
+      background: rgba(185, 28, 28, 0.08);
+      border-color: rgba(185, 28, 28, 0.18);
+      color: var(--danger);
+    }
+
+    .banner.warning {
+      background: rgba(180, 83, 9, 0.08);
+      border-color: rgba(180, 83, 9, 0.18);
+      color: var(--warning);
+    }
+
+    .footer {
+      padding: 0 28px 24px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.6;
+      text-align: center;
+    }
+
+    .muted {
+      color: #94a3b8;
+      font-style: italic;
+      font-weight: 500;
+    }
+
+    @media (max-width: 640px) {
+      body {
+        padding: 12px;
+      }
+
+      .head,
+      .body,
+      .footer {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+
+      .grid {
+        grid-template-columns: 1fr;
+      }
+
+      .line {
+        flex-direction: column;
+        gap: 4px;
+      }
+
+      .line span:first-child,
+      .line strong {
+        max-width: 100%;
+        flex: 1 1 auto;
+        text-align: left;
+      }
+
+      .highlight .amount {
+        font-size: 24px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="ticket" aria-label="Comprobante de transaccion Wompi">
+      <header class="head">
+        <div class="brand">
+          <div class="logo">
+            <img src="/public/img/logo-tankio.png" alt="Tankio" />
+          </div>
+          <div class="copy">
+            <h1>Respuesta de pago</h1>
+            <p>{{subtitle}}</p>
+          </div>
+        </div>
+
+        <div class="status-row">
+          <span class="pill {{status_class}}">{{status_label}}</span>
+          <span class="pill">Wompi {{environment}}</span>
+        </div>
+      </header>
+
+      <section class="body">
+        <div class="grid">
+          <div class="card">
+            <span class="label">Referencia</span>
+            <span class="value">{{reference}}</span>
+          </div>
+          <div class="card">
+            <span class="label">Transaction ID</span>
+            <span class="value">{{transaction_id}}</span>
+          </div>
+          <div class="card">
+            <span class="label">Cliente</span>
+            <span class="value">{{customer_name}}</span>
+          </div>
+          <div class="card">
+            <span class="label">Correo</span>
+            <span class="value">{{customer_email}}</span>
+          </div>
+          <div class="card">
+            <span class="label">Metodo de pago</span>
+            <span class="value">{{payment_method}}</span>
+          </div>
+          <div class="card">
+            <span class="label">Fecha</span>
+            <span class="value">{{date}}</span>
+          </div>
+        </div>
+
+        <div class="summary">
+          <div class="line">
+            <span>Estado de la transaccion</span>
+            <strong>{{status_label}}</strong>
+          </div>
+          <div class="line">
+            <span>Detalle</span>
+            <strong>{{status_message}}</strong>
+          </div>
+          <div class="line">
+            <span>Comercio</span>
+            <strong>{{merchant_name}}</strong>
+          </div>
+        </div>
+
+        <div class="highlight">
+          <div>
+            <div class="small">Monto</div>
+            <div class="amount">{{amount}}</div>
+          </div>
+          <div style="text-align:right;">
+            <div class="small">Moneda</div>
+            <div class="amount" style="font-size:18px;">{{currency}}</div>
+          </div>
+        </div>
+
+        <div class="banner {{status_class}}">
+          {{banner}}
+        </div>
+      </section>
+
+      <footer class="footer">
+        Este comprobante muestra la informacion mas relevante de la transaccion. Conserva esta respuesta como soporte si necesitas validar el pago.
+      </footer>
+    </section>
+  </main>
+</body>
+</html>

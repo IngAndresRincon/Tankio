@@ -6,6 +6,7 @@ class AppConfig {
     //defaultValue: 'https://subdivinely-unreciprocal-hee.ngrok-free.dev',
     //defaultValue: 'https://rhode-pink-span-laws.trycloudflare.com',
     //defaultValue: 'http://18.204.225.239:3001',
+    //defaultValue: 'http://192.168.120.143:40411',
     defaultValue: 'http://tankio.insepet.com:3003',
   );
 
@@ -14,6 +15,7 @@ class AppConfig {
     //defaultValue: 'https://subdivinely-unreciprocal-hee.ngrok-free.dev',
     //defaultValue: 'https://rhode-pink-span-laws.trycloudflare.com',
     //defaultValue: 'http://192.168.120.149:3000',
+    //defaultValue: 'http://192.168.120.143:40411',
     defaultValue: 'http://tankio.insepet.com:3003',
   );
 
